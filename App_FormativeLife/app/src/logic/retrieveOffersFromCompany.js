@@ -14,7 +14,7 @@ function retrieveOffersFromCompany(targetUserId) {
         targetUserId = logic.getLoggedInUserId();
     }
 
-    return fetch(`http://localhost:8989/users/${targetUserId}/offers`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${targetUserId}/offers`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${ sessionStorage.token }`

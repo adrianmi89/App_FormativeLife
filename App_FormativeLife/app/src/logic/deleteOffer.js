@@ -8,7 +8,7 @@ function deleteOffer(offerId) {
     validate.id(offerId, "offerId");
     //validate.id(companyId, "companyId");
 
-    return fetch(`http://localhost:8989/offers/${offerId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/offers/${offerId}`, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${sessionStorage.token}` },
     })

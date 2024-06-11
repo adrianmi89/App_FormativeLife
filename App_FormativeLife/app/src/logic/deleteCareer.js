@@ -8,7 +8,7 @@ function deleteCareer(careerId) {
     validate.id(careerId, "careerId");
     //validate.id(studentId, "studentId");
 
-    return fetch(`http://localhost:8989/careers/${careerId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/careers/${careerId}`, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${sessionStorage.token}` },
     })

@@ -80,13 +80,13 @@ function Career({ career, onCareerDeleted, onCareerUpdate }){
             
             { career.student.id === logic.getLoggedInUserId() && 
                 <div>
-                    <Button className="bg-red-500 text-white m-2 border-solid border-2 border-black" onClick={ handleDeleteCareer }>Borrar estudio</Button>
+                    <Button className="bg-red-500 text-white m-2 p-2 hover:text-xl hover:font-extrabold border-solid border-2 border-black" onClick={ handleDeleteCareer }>Borrar estudio</Button>
                 </div>
             }
         
             {!changeCareer && career.student.id === logic.getLoggedInUserId() && 
 
-                <Button className="bg-green-500 text-white m-2 border-solid border-2 border-black" onClick={()=> setChangeCareer(true)}>Editar estudio</Button>
+                <Button className="bg-green-500 text-white m-2 p-2 hover:text-xl hover:font-extrabold border-solid border-2 border-black" onClick={()=> setChangeCareer(true)}>Editar estudio</Button>
            
             }
             {changeCareer && 

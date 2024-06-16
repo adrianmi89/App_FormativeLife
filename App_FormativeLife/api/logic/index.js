@@ -14,6 +14,7 @@ import retrieveUsers from "./retrieveUsers.js";
 import retrieveOffers from "./retrieveOffers.js";
 import retrieveCareersFromStudent from "./retrieveCareersFromStudent.js";
 import retrieveOffersFromCompany from "./retrieveOffersFromCompany.js";
+import countUser from "./countUsers.js";
 
 const logic = {
     registerStudent,
@@ -31,7 +32,8 @@ const logic = {
     retrieveUsers,
     retrieveOffers,
     retrieveCareersFromStudent,
-    retrieveOffersFromCompany
+    retrieveOffersFromCompany,
+    countUser
 }
 
 export default logic;

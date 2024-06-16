@@ -55,8 +55,8 @@ function Profile() {
 
             <>
             <Header className="header" role={role}></Header>
-            <main>
-                <container id="container">
+            <main className="w-[100%] flex-auto">
+                <container className="my-4 mx-6 p-8 font-serif text-lg w-[79%] h-auto">
                     <section>
                         {!user && <p>Loading...</p>}
                         {user && 

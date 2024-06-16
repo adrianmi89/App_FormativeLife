@@ -54,14 +54,14 @@ function ListaUsuarios(props) {
 
     return (
         <>
-            <header className="header">
-                <div id="app" onClick={props.onClickInicio}>FormativeLife</div>
-                <div className="titular"><i>Lista de Usuarios</i></div>
+            <header className="mx-0 my-0 p-6 flex-auto w-[100%] h-40 border-solid shadow-2xl bg-blue-400 font-extrabold font-sans">
+                <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={props.onClickInicio}>FormativeLife</div>
+                <div className="float-right mx-[10%] text-3xl"><i>Lista de Usuarios</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
 
-                <button className="buscar" onClick={props.onUserLoggedIn}>Volver a tu perfil</button>
+                <button className="m-[0%] float-right w-[30%] border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onUserLoggedIn}>Volver a tu perfil</button>
             </header>
-            <main>
-                <container id="container">
+            <main className="w-[100%] flex-auto">
+                <container className="my-4 m-l-[5%] m-r-[5%] p-8 font-serif text-lg w-[90%] h-auto">
                     <section>
                         {
                             role == "student" ?

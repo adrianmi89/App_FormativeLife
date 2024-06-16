@@ -115,13 +115,13 @@ function Offer({ offer, onOfferDeleted, onOfferUpdate }){
             
             { offer.company.id === logic.getLoggedInUserId() && 
                 <div>
-                    <Button className=" bg-red-500 text-white p-2 border-solid border-2 border-black" onClick={ handleDeleteOffer}>Borrar</Button>
+                    <Button className=" bg-red-500 text-white m-2 p-2 hover:text-xl hover:font-extrabold border-solid border-2 border-black" onClick={ handleDeleteOffer}>Borrar</Button>
                 </div>
             }
              
             {!changeOffer && offer.company.id === logic.getLoggedInUserId() && <>
            
-           <Button className="border-2 border-solid border-white bg-green-500 text-white" onClick={()=> setChangeOffer(true)}>Editar Oferta</Button>
+           <Button className="border-2 border-solid border-white m-2 p-2 hover:text-xl hover:font-extrabold bg-green-500 text-white" onClick={()=> setChangeOffer(true)}>Editar Oferta</Button>
            </>
            }
            {changeOffer && 

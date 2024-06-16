@@ -68,23 +68,23 @@ function Home(props) {
 
     return (
     <>
-        <header className="header">
-            <div id="app" onClick={props.onClickInicio}>FormativeLife</div>
-            <div className="titular"><i>Actualiza tu perfil</i></div>
-            <div id="area-perfil">
-                <button className="button m-4" onClick={props.onClickInicio}>Página principal 🏚️</button>
-                <button className="login button" onClick={handleLogout}>Cerrar Sesión</button>
-                <Button className="bg-red-500 text-white m-2 border-solid border-2 border-black" onClick={ handleDeleteUser }>Borrar cuenta</Button>
+        <header header className="mx-0 my-0 p-6 flex-auto w-[100%] h-52 border-solid shadow-2xl bg-blue-400 font-extrabold font-sans">
+            <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={props.onClickInicio}>FormativeLife</div>
+            <div className="float-right mx-[10%] text-3xl"><i>Busca o atrae talento</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
+            <div className="m-[0%] float-right w-[30%] border-solid">
+                <button className="p-2 border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onClickInicio}>Página principal 🏚️</button>
+                <button className="p-2 m-4 border-solid rounded-md shadow-3xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={handleLogout}>Cerrar Sesión</button>
+                <Button className="p-2 bg-red-500 text-white m-2 border-solid border-black" onClick={ handleDeleteUser }>Borrar cuenta</Button>
             </div>
-            <div id="area-buscador">
+            <div>
                 <form className="form">
                     {/* Hacer buscador por area profesional si da tiempo */}
-                    <button className="buscar" onClick={props.onClickListarUsers}>Buscar empresas y ver ofertas</button>
+                    <button className="p-2 my-2 mx-20 border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onClickListarUsers}>Buscar empresas y ver ofertas</button>
                 </form>
             </div>
         </header>
-        <main>
-            <container id="container">
+        <main className="w-[100%] flex-auto">
+            <container className="my-4 p-8 font-serif text-lg w-[95%] h-auto">
                 <section>
                     {!user && <p>Loading...</p>}
                     {user && 

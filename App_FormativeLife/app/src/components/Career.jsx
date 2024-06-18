@@ -76,7 +76,7 @@ function Career({ career, onCareerDeleted, onCareerUpdate }){
         <article className="border-2 border-solid border-black m-10">
             <h2 className="p-2 text-3xl font-bold">{ career.title }</h2>
             <img className="p-2 md:sm w-80 h-60" src={career.certification} />
-            <p className="p-2">{ career.description}</p>
+            <p className="p-3" className="p-3"className="p-2">{ career.description}</p>
             
             { career.student.id === logic.getLoggedInUserId() && 
                 <div>

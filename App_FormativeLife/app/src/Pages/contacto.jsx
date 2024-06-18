@@ -21,13 +21,16 @@ function Contacto(props) {
                     </ul>
                 </nav>
             </aside>
-            <container className="float-right my-4 m-l-[2%] m-r-[2%] p-8 border-2 border-solid border-black rounded-md font-serif text-lg w-[79%] h-auto">
+            <container className="float-right my-4 m-l-[2%] m-r-[2%] p-8 border-2 border-solid border-black rounded-md font-serif text-2xl w-[79%] h-auto">
                 <section>
-                    <h2 className="font-bold text-xl">Contacto</h2><br/>
-                    <h2 className="font-bold text-lf">Correo:</h2><span className="text-lf">adrianmi.info@gmail.com</span>
-                    <h2 className="font-bold text-lf">Teléfono:</h2><span className="text-lf">608501323</span>
-                    
+                    <h2 className="font-bold text-2xl">Contacto</h2><br/>
+                    <p className="p-2">Para cualquier duda o sugerencia de mejora del sitio web envíar un correo o WhatsApp.</p>
+                    <p className="p-2"><span className="font-extrabold text-xl">Recuerda: </span>Tu perfil es muy importante para las empresas que busquen talento, con lo cual se admiten críticas y sugerencias para mejorar la zona del perfil y que sea más atractivo para las empresas.</p>
                 </section>
+                <section className="my-10">
+                    <h2 className="font-bold text-2xl">Correo:</h2><a className="text-lg my-2" href="https://accounts.google.com/InteractiveLogin/signinchooser?continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F1%2F&emr=1&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F1%2F&osid=1&passive=1209600&service=mail&ifkv=AS5LTAQAusx69Y98YK1AmprwsqZCmuDOj8EAE-LlOcHe0JZ0oRFOomANfEgaE-i-TNPIBeZYcqjV8A&ddm=0&flowName=GlifWebSignIn&flowEntry=ServiceLogin#inbox" target="_blank">adrianmi.info@gmail.com</a>
+                    <h2 className="font-bold text-2xl">Teléfono:</h2><a className="text-lg my-2" href="https://web.whatsapp.com/" target="_blank">608501323</a>
+                    </section>
             </container>
         </main>
         <footer>

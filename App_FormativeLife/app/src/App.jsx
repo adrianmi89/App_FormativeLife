@@ -50,7 +50,7 @@ function App() {
           <Route path="/home" element={<Home onClickListarUsers={handleListarUsers} onClickResetPassword={handleResetPassword} onClickInicio={handleInicio} />} /> 
           <Route path="/homeEmpresa" element={<HomeEmpresa onClickListarUsers={handleListarUsers} onClickResetPassword={handleResetPassword} onClickInicio={handleInicio} />} /> 
           <Route path="/listaUsuarios" element={logic.isUserLoggedIn() ? <ListaUsuarios onClickListarUsers={handleListarUsers} onUserLoggedIn={handleUserLoggedIn}/> : <Navigate to="/" />}/>
-          <Route path="/profile/:targetUserId" element={ <Profile />}/>
+          <Route path="/profile/:targetUserId" element={ <p className="p-3"rofile />}/>
 
           {/* {view === 'resetPassword' && <ResetPassword />} */}
       </Routes>

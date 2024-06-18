@@ -87,7 +87,7 @@ function HomeEmpresa(props) {
         <main className="m-4 w-[100%] flex-auto">
             <container className="my-4 p-8  font-serif text-lg w-[95%] h-auto">
                     <section>
-                        {!user && <p>Loading...</p>}
+                        {!user && <p className="p-3">Loading...</p>}
                         {user && 
                         <>
                             <h1 className="text-3xl font-bold">Admin de {user.name}</h1><br/>

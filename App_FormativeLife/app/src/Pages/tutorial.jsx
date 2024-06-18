@@ -23,25 +23,26 @@ function Tutorial(props) {
                     </ul>
                 </nav>
             </aside>
-            <container className="float-right my-4 m-l-[2%] m-r-[2%] p-8 border-2 border-solid border-black rounded-md font-serif text-lg w-[79%] h-auto">
+            <container className="float-right my-4 m-l-[2%] m-r-[2%] p-8 border-2 border-solid border-black rounded-md font-serif text-xl w-[79%] h-auto">
                 <section>
-                    <h2 className="font-bold text-xl">Tutorial de uso</h2><br/>
-                    <p>Si eres nuevo y no sabes como utilizar este sitio, aquí está pequeña guía:</p>
-                    <br/><br/>
+                    <h2 className="font-bold text-2xl">Tutorial de uso</h2><br/>
+                    <p className="p-2">Si eres nuevo y no sabes como utilizar este sitio, aquí tiene una pequeña guía de 5 pasos:</p>
+                    <br/>
                     <ul>
-                        <li>1. Navega por las distintas páginas para tener una idea del objetivo del sitio web.
+                        <li>
+                            <span className="px-3 bg-black text-white text-3xl text-center flex-auto rounded-full w-2">1</span> Navega por las distintas páginas para tener una idea del objetivo del sitio web.
                         </li><br/>
                         <li>
-                            2. Si quieres empezar a utilizarlo y ver que ventajas tiene registrate con uno de los 2 tipos de usuario que tenemos.
+                            <span className="px-3 bg-black text-white text-3xl text-center flex-auto rounded-full w-2">2</span> Si quieres empezar a utilizarlo y ver que ventajas tiene registrate con uno de los dos tipos de usuario que tenemos.
                         </li><br/>
                         <li>
-                            3. Inicia sesión y controla tu perfil de usuario en todo momento.
+                            <span className="px-3 bg-black text-white text-3xl text-center flex-auto rounded-full w-2">3</span> Inicia sesión y controla tu perfil de usuario en todo momento.
                         </li><br/>
                         <li>
-                            4. Cuanto más actualizado tengas tu perfil, más se van fijar las empresas o estudiantes en tí.
+                            <span className="px-3 bg-black text-white text-3xl text-center flex-auto rounded-full w-2">4</span> Cuanto más actualizado tengas tu perfil, más se van fijar las empresas o estudiantes en tí.
                         </li><br/>
                         <li>
-                            5. Para cualquier duda o sugerencia sobre el sitio web tienes el correo y teléfono del administrador del sitio en la página de Contacto.
+                            <span className="px-3 bg-black text-white text-3xl text-center flex-auto rounded-full w-2">5</span> Para cualquier duda o sugerencia sobre el sitio web tienes el correo y teléfono del administrador del sitio en la página de Contacto.
                         </li><br/>
                         <h3>Suerte con tu perfil y empieza a sacarle rendimiento!</h3>
                     </ul>                    

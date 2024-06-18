@@ -45,11 +45,11 @@ function ListaUsuarios(props) {
     }, [])
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <p className="p-3">Loading...</p>;
     }
 
     if (error) {
-        return <p>{error}</p>;
+        return <p className="p-3">{error}</p>;
     }
 
     return (

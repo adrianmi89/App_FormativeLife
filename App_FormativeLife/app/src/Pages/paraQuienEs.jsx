@@ -25,13 +25,13 @@ function ParaQuienEs(props) {
                     </ul>
                 </nav>
             </aside>
-            <container className="float-right my-4 m-l-[2%] m-r-[2%] p-8 border-2 border-solid border-black rounded-md font-serif text-lg w-[79%] h-auto">
+            <container className="float-right my-4 m-l-[2%] m-r-[2%] p-8 border-2 border-solid border-black rounded-md font-serif text-xl w-[79%] h-auto">
                 <section className="display-flex w-4/5">
-                    <h2 className="font-bold text-xl">¿Para Quién es?</h2>
+                    <h2 className="font-bold text-2xl">¿Para Quién es?</h2>
                     <p className="p-3">Este sitio web busca que tanto los estudiantes como las empresas tengan un primer contacto de 
                     una forma cómoda, rápida y sean selectivos sobre lo que buscan y den paso una posible entrevista ya contando con el perfil que 
                     se van encontrar. Una manera muy efectiva de filtrar sin tener que enfrentarse a varios procesos de selección.</p>
-                    <p>Las ventajas de utilizar este sitio web son:</p><br/>
+                    <p className="p-3">Las ventajas de utilizar este sitio web son:</p><br/>
                     <div className="w-2/5 border-double border-4 border-blue-300 float-left">
                         <div className="text-center font-extrabold">Estudiante</div><br/>
                         <div className="text-center font-medium">- Perfil detallado</div>

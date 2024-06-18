@@ -54,7 +54,7 @@ function Profile() {
             role === "student" ?
 
             <>
-            <Header className="header" role={role}></Header>
+            <Header role={role}></Header>
             <main className="w-[100%] flex-auto">
                 <container className="my-4 mx-6 p-8 font-serif text-lg w-[79%] h-auto">
                     <section>
@@ -75,16 +75,16 @@ function Profile() {
                     </section>
                 </container>
             </main>
-            <footer className="footer">
+            <footer>
                 
             </footer>
         
         </>
         : 
         <>
-            <Header className="header" role={role}></Header>
-            <main>
-                <container id="container">
+            <Header role={role}></Header>
+            <main className="w-[100%] flex-auto">
+                <container className="my-4 mx-6 p-8 font-serif text-lg w-[79%] h-auto">
                         <section>
                             {!user && <p className="p-3">Loading...</p>}
                             {user && 
@@ -94,7 +94,7 @@ function Profile() {
                                 <h2 className="text-xl "><span className="font-extrabold">Ubicación:</span> {user.address}</h2>
                                 <h2 className="text-xl "><span className="font-extrabold">Correo:</span> <a href="https://www.gmail.com/mail/help/intl/es/about.html?iframe" target="_blank">{user.email}</a></h2>
 
-                                <p className="p-3" className="p-3"className='p-4 float-right italic font-extrabold'>Para inscribirse a una oferta es necesario enviar tu CV al correo de la empresa. Mucha suerte! </p>
+                                <p className='p-4 float-right italic font-extrabold'>Para inscribirse a una oferta es necesario enviar tu CV al correo de la empresa. Mucha suerte! </p>
                             </>
                             }
 
@@ -105,7 +105,7 @@ function Profile() {
                     </section>
                 </container>
             </main>
-            <footer className="footer">
+            <footer>
                 
             </footer>
         </>

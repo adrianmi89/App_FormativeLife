@@ -4,6 +4,8 @@ import logic from '../logic'
 import CreateOffer from "../components/CreateOffer"
 import OffersCompany from "../components/OffersCompany"
 import Button from '../components/Button'
+import ButtonEditProfile from '../components/ButtonEditProfile'
+import CalendarOffers from '../components/CalendarOffers'
 
 const { ContentError, MatchError } = errors
 
@@ -72,15 +74,15 @@ function HomeEmpresa(props) {
             <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={props.onClickInicio}>FormativeLife</div>
             <div className="float-right mx-[10%] text-3xl"><i>Busca o atrae talento</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
             <div className="m-[0%] float-right w-[30%] border-solid">
-                <button className="p-2 border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onClickInicio}>Página principal 🏚️</button>
-                <button className="p-2 m-4 border-solid rounded-md shadow-3xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={handleLogout}>Cerrar Sesión</button>
-                <Button className="p-2 bg-red-500 text-white mx-2 border-solid border-black" onClick={ handleDeleteUser }>Borrar cuenta</Button>
+                <Button onClick={props.onClickInicio}>Página principal 🏚️</Button>
+                <Button onClick={handleLogout}>Cerrar Sesión</Button>
+                <ButtonEditProfile onClick={ handleDeleteUser }>Borrar cuenta</ButtonEditProfile>
                 
             </div>
             <div id="area-buscador">
                 {/* Hacer buscador por area profesional si da tiempo */}
                 <form className="form">
-                    <button className="p-2 my-2 mx-20 border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onClickListarUsers}>Buscar estudiantes</button>
+                    <Button onClick={props.onClickListarUsers}>Buscar estudiantes</Button>
                 </form>
             </div>
         </header>
@@ -90,18 +92,29 @@ function HomeEmpresa(props) {
                         {!user && <p className="p-3">Loading...</p>}
                         {user && 
                         <>
-                            <h1 className="text-3xl font-bold">Admin de {user.name}</h1><br/>
-                            <h2 className="text-xl "><span className="font-extrabold">Actividad:</span> {user.activity}</h2>
-                            <h2 className="text-xl "><span className="font-extrabold">Ubicación:</span> {user.address}</h2>
-                            <h2 className="text-xl "><span className="font-extrabold">Correo:</span> {user.email}</h2>
+                            <div className='m-8 w-full flex space-x-[30%]'>
+                                <div className='float-left'>
+                                    <h1 className="text-3xl font-bold">Admin de {user.name}</h1><br/>
+                                    <h2 className="text-xl "><span className="font-extrabold">Actividad:</span> {user.activity}</h2>
+                                    <h2 className="text-xl "><span className="font-extrabold">Ubicación:</span> {user.address}</h2>
+                                    <h2 className="text-xl "><span className="font-extrabold">Correo:</span> {user.email}</h2>
+                                    <div>
+                                        <Button onClick={ handleCreateOfferClick }>Añadir oferta ➕</Button>
+                                    </div>
+                                </div>
+                                <div className="float-right mr-40">
+                                    <h2 className="text-3xl font-extrabold">Mi agenda de Entrevitas</h2>
+                                    {/* <calendar-date>
+                                        <calendar-month></calendar-month>
+                                    </calendar-date> */}
+                                </div>
+                            </div>
                         </>
                         }
 
                     </section>
                     <section>
-                    <div className="mr-40">
-                        <button className="button m-2" onClick={ handleCreateOfferClick }>Añadir oferta ➕</button>
-                    </div>
+                    
                     <OffersCompany targetUserId={logic.getLoggedInUserId()} refreshStamp={ refreshStamp }/>
                 </section>
 

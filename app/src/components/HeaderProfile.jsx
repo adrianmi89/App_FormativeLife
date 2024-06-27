@@ -1,4 +1,4 @@
-function Header ({role}){
+function HeaderProfile ({role}){
     return (
 
             role === "student" ?
@@ -18,4 +18,4 @@ function Header ({role}){
     )
 }
 
-export default Header;
+export default HeaderProfile;

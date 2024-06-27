@@ -1,6 +1,6 @@
 import { useState } from "react";
 import logic from "../logic"
-import Button from "./Button";
+import Button from "./ButtonEditProfile";
 
 function CreateCareer({ onCancelClick, onCreateCareer }){
 
@@ -46,10 +46,10 @@ function CreateCareer({ onCancelClick, onCreateCareer }){
                 <label htmlFor="image">Certificado del estudio:</label>
                 <input className="input" type="text" id="image" placeholder="Enlace a la imagen"/>
 
-                <button className="button button--right" type="submit">Publicar</button>
+                <Button className="button button--right" type="submit">Publicar</Button>
             </form>
 
-            <button className="button--center" onClick={handleCancelClick}>Cancel</button>
+            <Button className="button--center" onClick={handleCancelClick}>Cancel</Button>
         </section>
     )
 }

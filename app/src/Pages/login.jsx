@@ -1,6 +1,7 @@
 import { useState } from "react"
 import logic from "../logic"
 import { errors, validate} from "com"
+import Button from '../components/Button'
 
 const { SystemError, MatchError, ContentError} = errors;
 
@@ -70,14 +71,14 @@ function Login({onUserLoggedIn, onClickResetPassword, onClickInicio}) {
                         <input className="border-solid border-2 bg-white border-black mx-2 p-2" type="password" id="password" placeholder="Contraseña"/><br/>
                         {error?.isPasswordError && <span className="text-red-500">{error.message}</span>}<br/><br/>
 
-                        <button className="p-2 border-solid border-2 border-black rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" type="submit">Iniciar Sesion</button><br/><br/>
+                        <Button type="submit">Iniciar Sesion</Button><br/><br/>
                     </form>
 
                 </section>
             </container>
         </main>
         <footer>
-            <button className="mx-2 p-2 border-solid border-2 border-black rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={onClickInicio}>Volver</button>
+            <Button onClick={onClickInicio}>Volver</Button>
         </footer>
     </>
     )

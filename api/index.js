@@ -1,5 +1,7 @@
 import mongoose from "mongoose"
 import express from "express"
+import multer from "multer"
+import fs from "node:fs"
 import logic from "./logic/index.js"
 import cors from "cors"
 import { errors } from "com"
@@ -29,6 +31,49 @@ mongoose.connect(MONGO_URL)
 
         //Usando la librería cors para que se pueda llamar a la API desde otro servidor (le damos permiso a ese puerto)
         server.use(cors());
+
+        //Configurar el almacenamiento de Multer creando la carpeta de almacenamiento y la ruta
+
+        /* const storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, "uploads/")
+            },
+            filename: (req, file, cb) => {
+                cb(null, `${Date.now()}-${file.originalname}`)
+            }
+        })
+            */
+
+        const dir = "./images"
+
+        if(!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        } 
+
+        server.post("/images/single", logic.upload.single("file"), (req, res) => {
+            
+            console.log(req.file);
+            saveImage(req.file);
+            res.send("Termina");
+            /* try{
+                res.status(200).send({
+                    message: "Subida realizada con éxito",
+                    file: req.file
+                })
+            } catch(error){
+                res.status(500).send({
+                    message: "Error al subir el archivo",
+                    error
+                });
+            } */
+        });
+
+        function saveImage(file){
+
+            const newPath = `./uploads/${file.originalname}`;
+            fs.renameSync(file.path, newPath);
+            return newPath;
+        }
 
         //Le pasamos los datos del registro a la ruta de la API si se validó todo correctamente
         //TEST PASADO
@@ -173,6 +218,31 @@ mongoose.connect(MONGO_URL)
       res.status(status).json({ error: error.constructor.name, message: error.message })
     }
   })
+  // Pendiente para subir ficheros
+  server.post("/users/students", jsonBodyParser, (req, res) => {
+    try {
+        const { name, surnames, age, email, password } = req.body;
+        logic.registerStudent(name, surnames, age, email, password)
+            .then(() => res.status(201).send())
+            .catch(error => {
+
+                let status = 500;
+
+                if (error instanceof DuplicityError) status = 409;
+
+                res.status(status).json({ error: error.constructor.name, message: error.message });
+            })
+    }
+    catch (error) {
+
+        let status = 500;
+
+        if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError)
+            status = 400;
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
+    }
+})
   //TEST PASADO
   server.patch('/careers/:targetCareerId', jsonBodyParser, (req, res) => {
     try {

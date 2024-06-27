@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { errors } from "com"
 import logic from '../logic'
-import Header from './Header'
 import CareersStudent from './CareersStudent'
 import OffersCompany from './OffersCompany'
+import HeaderProfile from './HeaderProfile'
 
 const { ContentError, MatchError } = errors
 
@@ -54,7 +54,7 @@ function Profile() {
             role === "student" ?
 
             <>
-            <Header role={role}></Header>
+            <HeaderProfile role={role}></HeaderProfile>
             <main className="w-[100%] flex-auto">
                 <container className="my-4 mx-6 p-8 font-serif text-lg w-[79%] h-auto">
                     <section>
@@ -63,7 +63,7 @@ function Profile() {
                         <>
                             <h1 className="text-3xl font-bold">{user.name} {user.surnames}</h1><br/>
                             <h1 className="text-xl"><span className="font-extrabold">Edad:</span> {user.age}</h1>
-                            <h1 className="text-xl "><span className="font-extrabold">Correo:</span> {user.email}</h1>
+                            <h1 className="text-xl "><span className="font-extrabold">Correo:</span><a href="https://www.gmail.com/mail/help/intl/es/about.html?iframe" target="blank">{user.email}</a></h1>
 
                         </>
                         }
@@ -82,7 +82,7 @@ function Profile() {
         </>
         : 
         <>
-            <Header role={role}></Header>
+            <HeaderProfile role={role}></HeaderProfile>
             <main className="w-[100%] flex-auto">
                 <container className="my-4 mx-6 p-8 font-serif text-lg w-[79%] h-auto">
                         <section>

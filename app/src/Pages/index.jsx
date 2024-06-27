@@ -1,5 +1,6 @@
 import logic from "../logic";
 import { errors, validate } from "com"
+import Button from '../components/Button'
 
 const { SystemError } = errors;
 
@@ -42,18 +43,18 @@ function Inicio({ onClickLogin , onClickRegister, onClickParaQuienEs, onClickTut
             <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal">FormativeLife</div>
             <div className="float-right mx-[10%] text-3xl"><i>Busca o atrae talento</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
 
-            <div className="m-[0%] float-right w-[30%] border-solid">
-                <button className="p-2 border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={handleClickUserLogin}>Iniciar Sesión</button>
-                <button className="p-2 m-4 border-solid rounded-md shadow-3xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={handleClickUserRegister}>Crear cuenta</button>
+            <div className="m-[0%] float-right w-[30%] border-solid flex-auto">
+                <Button onClick={handleClickUserLogin}>Iniciar Sesión</Button>
+                <Button onClick={handleClickUserRegister}>Crear cuenta</Button>
                 {/* {
                     !logic.isUserLoggedIn && className="p-3
                     <>
-                    <button className="login" onClick={handleClickUserLogin}>Iniciar Sesión</button>
-                    <button className="register" onClick={handleClickUserRegister}>Crear cuenta</button>
+                    <Button className="login" onClick={handleClickUserLogin}>Iniciar Sesión</Button>
+                    <Button className="register" onClick={handleClickUserRegister}>Crear cuenta</Button>
                     </>
                 }
                 {
-                    logic.isUserLoggedIn && <button className="buscar" ><a href="/home">Volver a tu perfil</a></button>
+                    logic.isUserLoggedIn && <Button className="buscar" ><a href="/home">Volver a tu perfil</a></Button>
                 } */}
             </div><br/><br/>
             {/* <div id="area-perfil mt-10">

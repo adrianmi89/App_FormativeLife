@@ -1,3 +1,5 @@
+import Button from '../components/Button'
+
 function Contacto(props) {
 
     return (
@@ -6,8 +8,8 @@ function Contacto(props) {
             <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={props.onClickInicio}>FormativeLife</div>
             <div className="float-right mx-[10%] text-3xl"><i>Busca o atrae talento</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
             <div className="m-[0%] float-right w-[30%] border-solid">
-                <button className="p-2 border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onClickLogin}>Iniciar Sesión</button>
-                <button className="p-2 m-4 border-solid rounded-md shadow-3xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onClickRegister}>Crear Cuenta</button>
+                <Button onClick={props.onClickLogin}>Iniciar Sesión</Button>
+                <Button onClick={props.onClickRegister}>Crear Cuenta</Button>
             </div>
         </header>
         <main className="w-[100%] flex-auto">

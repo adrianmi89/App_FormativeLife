@@ -2,6 +2,7 @@ import { useState } from "react";
 import logic from "../logic"
 import Button from "./Button";
 import { errors, validate } from "com"
+import ButtonEditProfile from "./ButtonEditProfile";
 
 const { RangeError } = errors
 
@@ -115,13 +116,13 @@ function Offer({ offer, onOfferDeleted, onOfferUpdate }){
             
             { offer.company.id === logic.getLoggedInUserId() && 
                 <div>
-                    <Button className=" bg-red-500 text-white m-2 p-2 hover:text-xl hover:font-extrabold border-solid border-2 border-black" onClick={ handleDeleteOffer}>Borrar</Button>
+                    <ButtonEditProfile onClick={ handleDeleteOffer} className="bg-red-600">Borrar</ButtonEditProfile>
                 </div>
             }
              
             {!changeOffer && offer.company.id === logic.getLoggedInUserId() && <>
            
-           <Button className="border-2 border-solid border-white m-2 p-2 hover:text-xl hover:font-extrabold bg-green-500 text-white" onClick={()=> setChangeOffer(true)}>Editar Oferta</Button>
+           <ButtonEditProfile onClick={()=> setChangeOffer(true)} className="bg-green-600">Editar Oferta</ButtonEditProfile>
            </>
            }
            {changeOffer && 
@@ -146,8 +147,8 @@ function Offer({ offer, onOfferDeleted, onOfferUpdate }){
                    <label htmlFor="expirationDate">Fecha de expiración:</label>
                    <input type="date" defaultValue={offer.expirationDate} name="expirationDate" /><br/>
 
-                   <br/><button type="submit">Publicar</button>
-                   <button onClick={handleCancelEdit}>Cancelar</button>
+                   <br/><Button type="submit">Publicar</Button>
+                   <Button onClick={handleCancelEdit}>Cancelar</Button>
                </form>
            </>
            }

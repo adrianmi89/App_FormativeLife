@@ -1,6 +1,7 @@
 import logic from "../logic";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Button from '../components/Button'
 
 
 function ListaUsuarios(props) {
@@ -58,7 +59,7 @@ function ListaUsuarios(props) {
                 <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={props.onClickInicio}>FormativeLife</div>
                 <div className="float-right mx-[10%] text-3xl"><i>Lista de Usuarios</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
 
-                <button className="m-[0%] float-right w-[30%] border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onUserLoggedIn}>Volver a tu perfil</button>
+                <Button className="m-[0%] float-right w-[30%] border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onUserLoggedIn}>Volver a tu perfil</Button>
             </header>
             <main className="w-[100%] flex-auto">
                 <container className="my-4 m-l-[5%] m-r-[5%] p-8 font-serif text-lg w-[90%] h-auto">

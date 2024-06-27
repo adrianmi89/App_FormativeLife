@@ -59,10 +59,10 @@ function onCreateOffer({ onCancelClick, onCreateOffer }){
                 <label htmlFor="fechaexpiracion">Fecha expiración:</label>
                 <input className="input" type="date" id="fechaexpiracion" placeholder=""/>
 
-                <button className="button button--right" type="submit">Publicar</button>
+                <Button className="button button--right" type="submit">Publicar</Button>
             </form>
 
-            <button className="button--center" onClick={handleCancelClick}>Cancel</button>
+            <Button className="button--center" onClick={handleCancelClick}>Cancel</Button>
         </section>
     )
 }

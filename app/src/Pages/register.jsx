@@ -2,6 +2,7 @@ import { useState } from "react";
 //import Form from "../components/Form"
 import logic from "../logic"
 import { errors, validate } from "com"
+import Button from '../components/Button'
 
 const { ContentError, DuplicityError, RangeError, TypeError } = errors
 
@@ -120,7 +121,7 @@ function Register(props) {
                         <input className="border-solid border-2 bg-white border-black mx-2 p-2" type="password" id="password" placeholder="Entre 8 y 16 caracteres" required /><br/><br/>
                         {/* {error?.isPasswordError && <span className="text-red-500">{error.message}</span>}<br/> */}
 
-                        <button className="p-2 border-solid border-black border-2 rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" type="submit">Registrarse como estudiante</button>
+                        <Button type="submit">Registrarse como estudiante</Button>
                     </form>
 
                     <form className="float-left text-xl" onSubmit={ handleSubmitCompany }>
@@ -144,12 +145,12 @@ function Register(props) {
                         <input className="border-solid border-2 bg-white border-black mx-2 p-2" type="password" id="password" placeholder="Entre 8 y 16 caracteres" required /><br/><br/>
                         {/* {error?.isPasswordError && <span className="text-red-500">{error.message}</span>}<br/> */}
 
-                        <button className="p-2 border-solid border-black border-2 rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" type="submit">Registrarse como empresa</button>
+                        <Button  type="submit">Registrarse como empresa</Button>
                     </form>
 
                 </section>
-                    {/* <button onClick={ FormStudent() }>Registrarse como Estudiante</button> */}
-                    {/* <button onClick={ FormCompany() }>Registrarse como Empresa</button> */} 
+                    {/* <Button onClick={ FormStudent() }>Registrarse como Estudiante</Button> */}
+                    {/* <Button onClick={ FormCompany() }>Registrarse como Empresa</Button> */} 
             </container>
         </main>
         <footer>

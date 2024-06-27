@@ -1,5 +1,6 @@
 import { useState } from "react"
 import logic from "../logic"
+import ButtonEditProfile from "./ButtonEditProfile"
 import Button from "./Button"
 
 function Career({ career, onCareerDeleted, onCareerUpdate }){
@@ -76,17 +77,17 @@ function Career({ career, onCareerDeleted, onCareerUpdate }){
         <article className="border-2 border-solid border-black m-10">
             <h2 className="p-2 text-3xl font-bold">{ career.title }</h2>
             <img className="p-2 md:sm w-80 h-60" src={career.certification} />
-            <p className="p-3" className="p-3"className="p-2">{ career.description}</p>
+            <p className="p-3">{ career.description}</p>
             
             { career.student.id === logic.getLoggedInUserId() && 
                 <div>
-                    <Button className="bg-red-500 text-white m-2 p-2 hover:text-xl hover:font-extrabold border-solid border-2 border-black" onClick={ handleDeleteCareer }>Borrar estudio</Button>
+                    <ButtonEditProfile onClick={ handleDeleteCareer } className="bg-red-700">Borrar estudio</ButtonEditProfile>
                 </div>
             }
         
             {!changeCareer && career.student.id === logic.getLoggedInUserId() && 
 
-                <Button className="bg-green-500 text-white m-2 p-2 hover:text-xl hover:font-extrabold border-solid border-2 border-black" onClick={()=> setChangeCareer(true)}>Editar estudio</Button>
+                <ButtonEditProfile onClick={()=> setChangeCareer(true)} className="bg-green-600">Editar estudio</ButtonEditProfile>
            
             }
             {changeCareer && 
@@ -99,10 +100,10 @@ function Career({ career, onCareerDeleted, onCareerUpdate }){
                     <input type="text" defaultValue={career.description} name="description" /><br/>
 
                     <label htmlFor="certification">Certificación:</label>
-                    <input defaultValue={career.certification} name="certification" /><br/>
+                    <input type= "file" defaultValue={career.certification} name="certification" /><br/>
 
-                    <br/><button type="submit">Publicar</button>
-                    <button onClick={handleCancelEdit}>Cancelar</button>
+                    <br/><Button type="submit">Publicar</Button>
+                    <Button onClick={handleCancelEdit}>Cancelar</Button>
                 </form>
             </>
             }

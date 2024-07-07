@@ -68,6 +68,29 @@ function Home(props) {
         alert("Para eliminar tu cuenta de usuario borra todos tus estudios y luego envía un correo al administrador del sitio web desde el menú de Contacto solicitando la eliminar la cuenta.")
     }
 
+    /* const handleSendImage = (e) => {
+        e.preventDefault();
+        const form = e.target;
+
+        const image = form.photos.value;
+
+        try{
+            logic.uploadImage(image)
+            .then( () => {
+                setRefreshStamp();
+            })
+            .catch(error => {
+                console.error(error)
+
+                alert("Error al cargar el archivo.")
+            })
+        }
+        catch(error){
+            console.error(error)
+
+            alert("Error al cargar el archivo.")
+        }
+    } */
     return (
     <>
         <header className="mx-0 my-0 p-6 flex-auto w-[100%] h-52 border-solid shadow-2xl bg-blue-400 font-extrabold font-sans">
@@ -102,8 +125,8 @@ function Home(props) {
                             </div>
                             
                             <div className="float-right mr-40">
-                                <h2 className="text-3xl font-extrabold">Mi Agenda de Eventos</h2>
-                                {/* <calendar-date>
+                                {/*<h2 className="text-3xl font-extrabold">Mi Agenda de Eventos</h2>
+                                 <calendar-date>
                                     <calendar-month></calendar-month>
                                 </calendar-date> */}
                             </div>
@@ -113,10 +136,10 @@ function Home(props) {
                     
                 </section>
                 <section>
-                    <form action="localhost:8989/images/single" encType="multipart/form-data" method="post">
-                        <input type="file" name="photos" id="photos" single="true" />
+                    {/* <form onSubmit="" {handleSendImage} >
+                        <input type="file" name="photos" id="photos" />
                         <input type="submit" value="Enviar" />
-                    </form>
+                    </form> */}
                     <CareersStudent targetUserId={logic.getLoggedInUserId()} refreshStamp={ refreshStamp }/>
                 </section>
 

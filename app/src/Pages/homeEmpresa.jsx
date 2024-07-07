@@ -103,8 +103,8 @@ function HomeEmpresa(props) {
                                     </div>
                                 </div>
                                 <div className="float-right mr-40">
-                                    <h2 className="text-3xl font-extrabold">Mi agenda de Entrevitas</h2>
-                                    {/* <calendar-date>
+                                    {/*<h2 className="text-3xl font-extrabold">Mi agenda de Entrevitas</h2>
+                                     <calendar-date>
                                         <calendar-month></calendar-month>
                                     </calendar-date> */}
                                 </div>

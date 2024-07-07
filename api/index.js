@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import express from "express"
-import multer from "multer"
+import upload from "./config/multer.js"
+import uploadFile from "./util/uploadFile.js"
 import fs from "node:fs"
 import logic from "./logic/index.js"
 import cors from "cors"
@@ -41,40 +42,29 @@ mongoose.connect(MONGO_URL)
             filename: (req, file, cb) => {
                 cb(null, `${Date.now()}-${file.originalname}`)
             }
-        })
-            */
+        }) */
 
-        const dir = "./images"
+        //const dir = "./images"
 
-        if(!fs.existsSync(dir)){
+        /* if(!fs.existsSync(dir)){
             fs.mkdirSync(dir);
         } 
 
-        server.post("/images/single", logic.upload.single("file"), (req, res) => {
-            
-            console.log(req.file);
-            saveImage(req.file);
-            res.send("Termina");
-            /* try{
-                res.status(200).send({
-                    message: "Subida realizada con éxito",
-                    file: req.file
-                })
-            } catch(error){
-                res.status(500).send({
-                    message: "Error al subir el archivo",
-                    error
-                });
-            } */
-        });
+        server.post("/images/single", upload.fields([{ name:"imagen", maxCount:1 }]), async(req, res) => {
+        
+            const body = req.body;
+            const image = req.files.imagen;
+                
+            if(image && image.lenth > 0){
 
-        function saveImage(file){
+                const { fileDownloadURL } = await uploadFile(image[0]);
 
-            const newPath = `./uploads/${file.originalname}`;
-            fs.renameSync(file.path, newPath);
-            return newPath;
-        }
-
+                return res.status(200).json({message: "Imagen subida con éxito"});
+            }
+            else
+                return res.status(400).json({message: "Debes enviar una imágen"})           
+        }); */
+ 
         //Le pasamos los datos del registro a la ruta de la API si se validó todo correctamente
         //TEST PASADO
         server.post("/users/students", jsonBodyParser, (req, res) => {
@@ -161,7 +151,8 @@ mongoose.connect(MONGO_URL)
             }
         })
         //TEST PASADO
-        server.post('/career', jsonBodyParser, (req, res) => {
+        // TODO Modificar lo de certification
+        server.post('/career', jsonBodyParser,(req, res) => {
             try {
                 const { authorization } = req.headers
       
@@ -189,6 +180,36 @@ mongoose.connect(MONGO_URL)
           res.status(status).json({ error: error.constructor.name, message: error.message })
         }
       })
+      server.post('/util/uploadFile', upload.fields([{ name:"image", maxCount:1 }]), async(req, res) => {
+
+            const { authorization } = req.headers
+  
+            /* const token = authorization.slice(7)
+  
+            const { sub: studentUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo') */
+  
+            const body = req.body;
+            const certification = req.files.storage;
+
+            if(certification && certification.length > 0){
+
+                const { downloadURL } = await uploadFile(certification[0]);
+
+                const newCareer = await new Career({
+    
+                    certification : downloadURL
+                }).save()
+                
+                return res.status(200).json({newCareer})
+            }
+            
+            return res.status(400).json({message : "Debes adjuntar un archivo"})
+    })
+
+    server.get("/careers", (req, res) => {
+
+        return res.json({ message : "Careers"})
+    })
       //TEST PASADO
       server.post('/offer', jsonBodyParser, (req, res) => {
         try {

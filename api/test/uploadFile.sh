@@ -1,0 +1,3 @@
+# curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjUzNGYzZjJlZTZlOWFhMTY3Y2EwOTQiLCJyb2xlIjoiY29tcGFueSIsImlhdCI6MTcyMDA5MTM5NCwiZXhwIjoxNzIwMDkzMTk0fQ.0fpYi60t5vmym2NWrYDW1qOXxlfbhAE2CYH4ouGWblI' -H 'Content-Type: application/json' -d '{"title":"new titulo again", "description":"new descripcion again", "certification":"Mario.png"}' http://localhost:8989/career -v
+curl -v http://localhost:8989/util/uploadFile -H "Authorization: Bearer 3006491f-86fa-4ad2-8d03-9db2cdaca353" -F "image=@mario.png" 
+# Otros parámetros que admite ;filename=my_profile.jpg;type=image/jpeg'

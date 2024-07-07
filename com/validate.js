@@ -103,6 +103,7 @@ function validateToken(token, explain = 'token') {
 
     if (exp < now) throw new MatchError(`${explain} expired`)
 }
+// TODO validate Imagen
 
 const validate = {
     name: validateName,

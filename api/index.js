@@ -34,7 +34,7 @@ mongoose.connect(MONGO_URL)
         //Usando la librería cors para que se pueda llamar a la API desde otro servidor (le damos permiso a ese puerto)
         const allowedOrigins = ['http://localhost:5173', 'https://www.formativelife.netlify.app']
 
-        const corsOptions = {
+        /* const corsOptions = {
             origin: function (origin, callback) {
                 if (!origin || allowedOrigins.indexOf(origin) !== -1) {
                     callback(null, true);
@@ -42,9 +42,9 @@ mongoose.connect(MONGO_URL)
                     callback(new Error('Not allowed by CORS'))
                 }
             }
-        }
+        } */
 
-        server.use(cors(corsOptions));
+        server.use(cors());
 
         //Configurar el almacenamiento de Multer creando la carpeta de almacenamiento y la ruta
 

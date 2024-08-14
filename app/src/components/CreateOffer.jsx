@@ -37,32 +37,31 @@ function onCreateOffer({ onCancelClick, onCreateOffer }){
     console.debug("CreateCareer render");
 
     return (
-        <section className="container container--border-top create-post">
-            <h2>Añadir oferta laboral a tu perfil</h2>
+        <section className="container container--border-top create-post mx-8">
+            <h2 className="text-center font-extrabold text-2xl">Añadir oferta laboral a tu perfil</h2>
 
             <form className="flex flex-col" onSubmit={handleSubmit}>
-                <label htmlFor="name">Título:</label>
-                <input className="input" type="text" id="name" />
+                <label htmlFor="name" className="p-2 font-semibold">Título:</label>
+                <input className="mx-2 border-solid border-gray-600 border-2" type="text" id="name" />
 
-                <label htmlFor="description">Descripción de la oferta:</label>
-                <input className="input" type="text" id="description" placeholder="Pequeño resumen de esta formación" />
+                <label htmlFor="description" className="p-2 font-semibold">Descripción de la oferta:</label>
+                <input className="mx-2 border-solid border-gray-600 border-2" type="text" id="description" placeholder="Pequeño resumen de esta formación" />
 
-                <label htmlFor="minSalary">Salario Bruto:</label>
-                <input className="input" type="text" id="minSalary" placeholder=""/>
+                <label htmlFor="minSalary" className="p-2 font-semibold">Salario Bruto:</label>
+                <input className="mx-2 border-solid border-gray-600 border-2" type="text" id="minSalary" placeholder=""/>
 
                 <label htmlFor="maxSalary">Salario Máximo:</label>
-                <input className="input" type="text" id="maxSalary" placeholder=""/>
+                <input className="mx-2 border-solid border-gray-600 border-2" type="text" id="maxSalary" placeholder=""/>
 
-                <label htmlFor="fechapublicacion">Fecha publicación de la oferta:</label>
-                <input className="input" type="date" id="fechapublicacion" placeholder=""/>
+                <label htmlFor="fechapublicacion" className="p-2 font-semibold">Fecha publicación de la oferta:</label>
+                <input className="mx-2 border-solid border-gray-600 border-2" type="date" id="fechapublicacion" placeholder=""/>
 
-                <label htmlFor="fechaexpiracion">Fecha expiración:</label>
-                <input className="input" type="date" id="fechaexpiracion" placeholder=""/>
+                <label htmlFor="fechaexpiracion" className="p-2 font-semibold">Fecha expiración:</label>
+                <input className="mx-2 border-solid border-gray-600 border-2" type="date" id="fechaexpiracion" placeholder=""/>
 
-                <Button className="button button--right" type="submit">Publicar</Button>
+                <button className="p-2 font-semibold text-white hover:text-black border-solid border-white border-2 bg-green-600" type="submit">Publicar</button>
+                <button className="p-2 font-semibold text-white hover:text-black border-solid border-white border-2 bg-red-700" onClick={handleCancelClick}>Cancel</button>
             </form>
-
-            <Button className="button--center" onClick={handleCancelClick}>Cancel</Button>
         </section>
     )
 }

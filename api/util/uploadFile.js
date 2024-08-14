@@ -2,29 +2,40 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
 import { storage } from "../config/firebase.js"
 import sharp from "sharp"
 
-async function uploadFile(file){
+export async function uploadFile(archivo){
 
-    let fileBuffer = await sharp(file.buffer)
-    .resize({width: 200, height: 200, fit: "cover"})
-    .toBuffer();
-
-    const fileRef = ref(storage, `files/${file.originalname + "" + Date.now()}`)
-
-    const fileMetadata = {
-        contentType: file.mimetype
+    if(!archivo || !archivo.buffer){
+        throw new Error("File or file buffer is undefined");
     }
 
-    const fileUploadPromise = uploadBytesResumable(
-        fileRef,
-        fileBuffer,
-        fileMetadata
-    )
+    try{
+        //Procesa el archivo dándole una resolución específica
+        const fileBuffer = await sharp(archivo.buffer)
+        .resize({width: 800, height: 800, fit: "cover"}).toBuffer();
 
-    await fileUploadPromise;
+        //Genera un nombre único para el archivo
+        const fileName = `${Date.now()}_${archivo.originalname.replace(/\s+/g, '_')}`;
+        const fileRef = ref(storage, `files/${fileName}`);
 
-    const fileDownloadURL = await getDownloadURL(fileRef);
+        //Define los metadatos del archivo
+        const fileMetadata = {
+            contentType: archivo.mimetype
+        }
 
-    return { ref: fileRef, downloadURL: fileDownloadURL }
+        //Sube el archivo a la nube
+        const fileUploadPromise = uploadBytesResumable(
+            fileRef,
+            fileBuffer,
+            fileMetadata
+        )
+        await fileUploadPromise;
+
+        //Obten la URL de descarga
+        const fileDownloadURL = await getDownloadURL(fileRef);
+
+        return { ref: fileRef, downloadURL: fileDownloadURL};
+    }
+    catch(error){
+        throw new Error(`Error uploading file: ${error.message}`);
+    }
 }
-
-export default uploadFile

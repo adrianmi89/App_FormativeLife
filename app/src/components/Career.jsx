@@ -2,23 +2,27 @@ import { useState } from "react"
 import logic from "../logic"
 import ButtonEditProfile from "./ButtonEditProfile"
 import Button from "./Button"
+import { errors } from "com"
+
+const { MatchError, ContentError } = errors;
 
 function Career({ career, onCareerDeleted, onCareerUpdate }){
 
+    //Hook para controlar el estado del estudio
+    const [changeCareer, setChangeCareer] = useState(false)
     const handleDeleteCareer = () => {
 
         const deleteConfirmed = confirm("Delete ??????")
         
         if(!deleteConfirmed) return;
         
-        //logic.getLoggedInUserId(), Le quitamos este parámetro porque la sesión la cogemos desde la API
         try{
             logic.deleteCareer( career.id)
-            .then(() => {onCareerDeleted()})
-            .catch(error =>  {
+                .then(() => {onCareerDeleted()})
+                .catch(error =>  {
 
-                console.error(error);
-                alert(error.message);
+                    console.error(error);
+                    alert(error.message);
             })
         }
         catch(error){
@@ -27,42 +31,44 @@ function Career({ career, onCareerDeleted, onCareerUpdate }){
             alert(error.message);
         }
     }
-
-    const [changeCareer, setChangeCareer] = useState(false);
 
     const handleUpdateSubmit = event => {
         event.preventDefault();
 
-        const form = event.target
-
-        const title = form.title.value;
-        const description = form.description.value;
-        const certification = form.certification.value;
-
-        const updateConfirmed = confirm("Confirm changes ??????");
-        
-        if(!updateConfirmed) return;
-        
         try{
-            logic.updateCareer(career.id, title, description, certification)
-                .then(() => {
-                    onCareerUpdate();
-                    setChangeCareer(false)
+            const form = event.target;
+            const title = form.title.value;
+            const description = form.description.value;
+            const certification = form.certification.files[0] || career.certification;
 
-                    console.debug("Se tiene que cerrar");
-                })
-                .catch(error => {
-
-                console.error(error);
-                alert(error.message);
-            })
+            if (confirm('Confirm changes?')) {
+                logic.updateCareer(career.id, title, description, certification)
+                    .then(() => {
+                        setIsEditing(false);
+                        onCareerUpdate();
+                    })
+                    .catch(error => {
+                        console.error(error)
+                        let feedback = error.message
+                        if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError)
+                            feedback = `${feedback}, please correct it`
+                        else if (error instanceof MatchError)
+                            feedback = `${feedback}, please verify credentials`
+                        else
+                            feedback = 'Sorry, there was an error, please try again later'
+                        alert(feedback)
+                    });
+            }
+        } catch (error) {
+            console.error(error)
+            let feedback = error.message
+            if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError)
+                feedback = `${feedback}, please correct it`
+            else
+                feedback = 'Sorry, there was an error, please try again later'
+            alert(feedback)
         }
-        catch(error){
-            
-            console.error(error);
-            alert(error.message);
-        }
-    }
+    };
 
     const handleCancelEdit = () => {
 
@@ -72,6 +78,7 @@ function Career({ career, onCareerDeleted, onCareerUpdate }){
     console.debug("Career render");
 
     console.log(career)
+
 
     return (
         <article className="border-2 border-solid border-black m-10">
@@ -102,7 +109,8 @@ function Career({ career, onCareerDeleted, onCareerUpdate }){
                     <label htmlFor="certification">Certificación:</label>
                     <input type= "file" defaultValue={career.certification} name="certification" /><br/>
 
-                    <br/><Button type="submit">Publicar</Button>
+                    <br/>
+                    <Button type="submit">Publicar</Button>
                     <Button onClick={handleCancelEdit}>Cancelar</Button>
                 </form>
             </>

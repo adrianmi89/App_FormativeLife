@@ -71,14 +71,14 @@ function Login({onUserLoggedIn, onClickResetPassword, onClickInicio}) {
                         <input className="border-solid border-2 bg-white border-black mx-2 p-2" type="password" id="password" placeholder="Contraseña"/><br/>
                         {error?.isPasswordError && <span className="text-red-500">{error.message}</span>}<br/><br/>
 
-                        <Button type="submit">Iniciar Sesion</Button><br/><br/>
+                        <button type="submit" className="bg-black text-white hover:text-green-600 m-2 p-1 text-2xl">Iniciar Sesion</button><br/><br/>
                     </form>
 
                 </section>
             </container>
         </main>
         <footer>
-            <Button onClick={onClickInicio}>Volver</Button>
+            <button onClick={onClickInicio} className="bg-black text-white m-2 p-1 text-2xl">Volver a atrás</button>
         </footer>
     </>
     )

@@ -6,15 +6,15 @@ import dotenv from "dotenv"
 dotenv.config();
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAbdu7HhUcKUlOfpcECH609aEnv46cyJqY",
-    authDomain: "formativelife-24f63.firebaseapp.com",
-    projectId: "formativelife-24f63",
-    storageBucket: "formativelife-24f63.appspot.com",
-    messagingSenderId: "60078783003",
-    appId: "1:60078783003:web:5d92dc1ef61bc3ffced6be"
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.STORAGE_BUCKET,
+    messagingSenderId: process.env.MESSAGINE_SENDER_ID,
+    appId: process.env.APP_ID
     //measurementId: "G-8JD5SZ9B1N"
   };
 
   const firebaseApp = initializeApp(firebaseConfig);
-  
-  export const storage = getStorage(firebaseApp)
+
+  export const storage = getStorage(firebaseApp);

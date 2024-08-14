@@ -147,7 +147,8 @@ function Offer({ offer, onOfferDeleted, onOfferUpdate }){
                    <label htmlFor="expirationDate">Fecha de expiración:</label>
                    <input type="date" defaultValue={offer.expirationDate} name="expirationDate" /><br/>
 
-                   <br/><Button type="submit">Publicar</Button>
+                   <br/>
+                   <Button type="submit">Publicar</Button>
                    <Button onClick={handleCancelEdit}>Cancelar</Button>
                </form>
            </>

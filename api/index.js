@@ -1,13 +1,14 @@
 import mongoose from "mongoose"
 import express from "express"
 import upload from "./config/multer.js"
-import uploadFile from "./util/uploadFile.js"
-import fs from "node:fs"
+import { uploadFile } from "./util/uploadFile.js"
 import logic from "./logic/index.js"
 import cors from "cors"
 import { errors } from "com"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
+//Faltaba añadir el import de la base de datos para la carga de archivos
+import { Career } from "./data/index.js"
 
 dotenv.config();
 
@@ -31,7 +32,19 @@ mongoose.connect(MONGO_URL)
         const jsonBodyParser = express.json();
 
         //Usando la librería cors para que se pueda llamar a la API desde otro servidor (le damos permiso a ese puerto)
-        server.use(cors());
+        const allowedOrigins = ['http://localhost:5173', 'https://www.formativelife.netlify.app']
+
+        const corsOptions = {
+            origin: function (origin, callback) {
+                if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+                    callback(null, true);
+                } else {
+                    callback(new Error('Not allowed by CORS'))
+                }
+            }
+        }
+
+        server.use(cors(corsOptions));
 
         //Configurar el almacenamiento de Multer creando la carpeta de almacenamiento y la ruta
 
@@ -152,8 +165,8 @@ mongoose.connect(MONGO_URL)
         })
         //TEST PASADO
         // TODO Modificar lo de certification
-        server.post('/career', jsonBodyParser,(req, res) => {
-            try {
+        //server.post('/career', jsonBodyParser,(req, res) => {
+            /* try {
                 const { authorization } = req.headers
       
                 const token = authorization.slice(7)
@@ -178,34 +191,47 @@ mongoose.connect(MONGO_URL)
           if(error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
       
           res.status(status).json({ error: error.constructor.name, message: error.message })
-        }
-      })
-      server.post('/util/uploadFile', upload.fields([{ name:"image", maxCount:1 }]), async(req, res) => {
+        } */
+      //})
 
+      server.post("/career", upload.fields([{name: "certification", maxCount: 1}]), async(req, res) => {
+
+       try{
             const { authorization } = req.headers
-  
-            /* const token = authorization.slice(7)
-  
-            const { sub: studentUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo') */
-  
-            const body = req.body;
-            const certification = req.files.storage;
-
-            if(certification && certification.length > 0){
-
-                const { downloadURL } = await uploadFile(certification[0]);
-
-                const newCareer = await new Career({
-    
-                    certification : downloadURL
-                }).save()
-                
-                return res.status(200).json({newCareer})
-            }
+            const token = authorization.slice(7)
+            const { sub: studentUserId } = jwt.verify(token, JWT_SECRET)
+      
+            const { title, description } = req.body;
+            const archivo = req.files && req.files.certification && req.files.certification[0]
             
-            return res.status(400).json({message : "Debes adjuntar un archivo"})
-    })
+            if(!archivo) 
+                return res.status(400).json({ error: "Archivo no encontrado"}) 
 
+            const { downloadURL } = await uploadFile(archivo);
+            const certification = downloadURL;
+
+            const createdCareer = await logic.createCareer(studentUserId, title, description, certification);
+            
+            res.status(201).json(createdCareer);
+       }
+       catch(error){
+        console.error('Error in POST /career:', error.message);
+
+        let status = 500;
+
+        if (error instanceof MatchError) {
+            status = 401;
+        } else if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError) {
+            status = 401;
+            error = new MatchError(error.message);
+        } else if (error instanceof ContentError) {
+            status = 400;
+        }
+
+        res.status(status).json({ error: error.constructor.name, message: error.message });
+       }
+    })
+    
     server.get("/careers", (req, res) => {
 
         return res.json({ message : "Careers"})

@@ -99,7 +99,7 @@ function HomeEmpresa(props) {
                                     <h2 className="text-xl "><span className="font-extrabold">Ubicación:</span> {user.address}</h2>
                                     <h2 className="text-xl "><span className="font-extrabold">Correo:</span> {user.email}</h2>
                                     <div>
-                                        <Button onClick={ handleCreateOfferClick }>Añadir oferta ➕</Button>
+                                        <button className="button m-4 border-black border-dashed border-4 text-xl p-1" onClick={ handleCreateOfferClick }>Añadir oferta ➕</button>
                                     </div>
                                 </div>
                                 <div className="float-right mr-40">
@@ -109,6 +109,7 @@ function HomeEmpresa(props) {
                                     </calendar-date> */}
                                 </div>
                             </div>
+                            {view === 'create-offer' && <CreateOffer onCancelClick={handleCreateOfferCancelClick} onCreateOffer={handleOfferCreated} />}
                         </>
                         }
 
@@ -117,8 +118,6 @@ function HomeEmpresa(props) {
                     
                     <OffersCompany targetUserId={logic.getLoggedInUserId()} refreshStamp={ refreshStamp }/>
                 </section>
-
-            {view === 'create-offer' && <CreateOffer onCancelClick={handleCreateOfferCancelClick} onCreateOffer={handleOfferCreated} />}
             </container>
         </main>
         <footer className="footer">

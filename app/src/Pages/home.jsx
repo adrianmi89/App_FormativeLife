@@ -120,7 +120,7 @@ function Home(props) {
                                 <h2 className="text-xl"><span className="font-extrabold">Edad:</span> {user.age}</h2>
                                 <h2 className="text-xl"><span className="font-extrabold">Correo:</span> {user.email}</h2>
                                 <div>
-                                    <Button className="button m-4" onClick={ handleCreateCareerClick }>Añadir estudios ➕</Button>
+                                    <button className="button m-4 border-black border-dashed border-4 text-xl p-1" onClick={ handleCreateCareerClick }>Añadir estudios ➕</button>
                                 </div>
                             </div>
                             
@@ -131,6 +131,7 @@ function Home(props) {
                                 </calendar-date> */}
                             </div>
                         </div>
+                        {view === 'create-career' && <CreateCareer onCancelClick={handleCreateCareerCancelClick} onCreateCareer={handleCareerCreated}/>}
                     </>
                     }
                     
@@ -142,8 +143,6 @@ function Home(props) {
                     </form> */}
                     <CareersStudent targetUserId={logic.getLoggedInUserId()} refreshStamp={ refreshStamp }/>
                 </section>
-
-            {view === 'create-career' && <CreateCareer onCancelClick={handleCreateCareerCancelClick} onCreateCareer={handleCareerCreated}/>}
             </container>
         </main>
         <footer className="footer">

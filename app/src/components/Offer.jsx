@@ -128,28 +128,28 @@ function Offer({ offer, onOfferDeleted, onOfferUpdate }){
            {changeOffer && 
            <>
                <form onSubmit={ handleUpdateSubmit }>
-                   <label htmlFor="title">Título</label>
-                   <input type="text" defaultValue={offer.title} name="title" /><br/>
+                   <label htmlFor="title" className="p-2 font-semibold">Título</label>
+                   <input className="mx-2 border-solid border-gray-600 border-2" type="text" defaultValue={offer.title} name="title" /><br/>
 
-                   <label htmlFor="description">Descripción</label>
-                   <input type="text" defaultValue={offer.description} name="description" /><br/>
+                   <label htmlFor="description" className="p-2 font-semibold">Descripción</label>
+                   <textarea className="mx-2 border-solid border-gray-600 border-2" type="text" defaultValue={offer.description} name="description" /><br/>
 
-                   <label htmlFor="minSalary">Salario:</label>
-                   <input defaultValue={offer.minSalary} name="minSalary" /><br/>
+                   <label htmlFor="minSalary" className="p-2 font-semibold">Salario:</label>
+                   <input className="mx-2 border-solid border-gray-600 border-2" defaultValue={offer.minSalary} name="minSalary" /><br/>
                    {error?.isSalaryMinError && <span className="text-red-500">{error.message}</span>}<br/>
 
-                   <label htmlFor="maxSalary">Salario Máximo en esta categoría:</label>
-                   <input defaultValue={offer.maxSalary} name="maxSalary" /><br/>
+                   <label htmlFor="maxSalary" className="p-2 font-semibold">Salario Máximo en esta categoría:</label>
+                   <input className="mx-2 border-solid border-gray-600 border-2" defaultValue={offer.maxSalary} name="maxSalary" /><br/>
 
-                   <label htmlFor="publishDate">Fecha publicación de la oferta:</label>
-                   <input type="date" defaultValue={offer.publishDate} name="publishDate" required/><br/>
+                   <label htmlFor="publishDate" className="p-2 font-semibold">Fecha publicación de la oferta:</label>
+                   <input className="mx-2 border-solid border-gray-600 border-2" type="date" defaultValue={offer.publishDate} name="publishDate" required/><br/>
 
-                   <label htmlFor="expirationDate">Fecha de expiración:</label>
-                   <input type="date" defaultValue={offer.expirationDate} name="expirationDate" /><br/>
+                   <label htmlFor="expirationDate" className="p-2 font-semibold">Fecha de expiración:</label>
+                   <input className="mx-2 border-solid border-gray-600 border-2" type="date" defaultValue={offer.expirationDate} name="expirationDate" /><br/>
 
                    <br/>
-                   <Button type="submit">Publicar</Button>
-                   <Button onClick={handleCancelEdit}>Cancelar</Button>
+                   <button className="p-2 font-semibold text-white hover:text-black border-solid border-white border-2 bg-green-600" type="submit">Guardar</button>
+                   <button className="p-2 font-semibold text-white hover:text-black border-solid border-white border-2 bg-red-700" onClick={handleCancelEdit}>Cancelar</button>
                </form>
            </>
            }

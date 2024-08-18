@@ -44,7 +44,7 @@ function Career({ career, onCareerDeleted, onCareerUpdate }){
             if (confirm('Confirm changes?')) {
                 logic.updateCareer(career.id, title, description, certification)
                     .then(() => {
-                        setIsEditing(false);
+                        setChangeCareer(false);
                         onCareerUpdate();
                     })
                     .catch(error => {
@@ -100,18 +100,18 @@ function Career({ career, onCareerDeleted, onCareerUpdate }){
             {changeCareer && 
             <>
                 <form onSubmit={ handleUpdateSubmit }>
-                    <label htmlFor="title">Título:</label>
-                    <input type="text" defaultValue={career.title} name="title" /><br/>
+                    <label htmlFor="title" className="p-2 font-semibold">Título:</label>
+                    <input type="text" className="mx-2 border-solid border-gray-600 border-2" defaultValue={career.title} name="title" /><br/>
 
-                    <label htmlFor="description">Descripción:</label>
-                    <input type="text" defaultValue={career.description} name="description" /><br/>
+                    <label htmlFor="description" className="p-2 font-semibold">Descripción:</label>
+                    <textarea type="text" className="mx-2 border-solid border-gray-600 border-2" defaultValue={career.description} name="description" /><br/>
 
-                    <label htmlFor="certification">Certificación:</label>
-                    <input type= "file" defaultValue={career.certification} name="certification" /><br/>
+                    <label htmlFor="certification" className="p-2 font-semibold">Certificación:</label>
+                    <input type= "file" name="certification" className="mx-2 border-solid border-gray-600 border-2" accept="image/jpeg, image/png, application/pdf" /><br/>
 
                     <br/>
-                    <Button type="submit">Publicar</Button>
-                    <Button onClick={handleCancelEdit}>Cancelar</Button>
+                    <button className="p-2 font-semibold text-white hover:text-black border-solid border-white border-2 bg-green-600" type="submit">Guardar</button>
+                    <button className="p-2 font-semibold text-white hover:text-black border-solid border-white border-2 bg-red-700" onClick={handleCancelEdit}>Cancelar</button>
                 </form>
             </>
             }

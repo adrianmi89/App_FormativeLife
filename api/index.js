@@ -45,38 +45,6 @@ mongoose.connect(MONGO_URL)
         } */
 
         server.use(cors());
-
-        //Configurar el almacenamiento de Multer creando la carpeta de almacenamiento y la ruta
-
-        /* const storage = multer.diskStorage({
-            destination: (req, file, cb) => {
-                cb(null, "uploads/")
-            },
-            filename: (req, file, cb) => {
-                cb(null, `${Date.now()}-${file.originalname}`)
-            }
-        }) */
-
-        //const dir = "./images"
-
-        /* if(!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
-        } 
-
-        server.post("/images/single", upload.fields([{ name:"imagen", maxCount:1 }]), async(req, res) => {
-        
-            const body = req.body;
-            const image = req.files.imagen;
-                
-            if(image && image.lenth > 0){
-
-                const { fileDownloadURL } = await uploadFile(image[0]);
-
-                return res.status(200).json({message: "Imagen subida con éxito"});
-            }
-            else
-                return res.status(400).json({message: "Debes enviar una imágen"})           
-        }); */
  
         //Le pasamos los datos del registro a la ruta de la API si se validó todo correctamente
         //TEST PASADO
@@ -291,7 +259,7 @@ mongoose.connect(MONGO_URL)
     }
 })
   //TEST PASADO
-  server.patch('/careers/:targetCareerId', jsonBodyParser, (req, res) => {
+  server.patch('/careers/:targetCareerId', upload.fields([{name: "certification", maxCount: 1}]), async(req, res) => {
     try {
         const { authorization } = req.headers
 
@@ -299,20 +267,22 @@ mongoose.connect(MONGO_URL)
 
         const { sub: studentUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
 
-        const { title, description, certification } = req.body
+        const { title, description } = req.body
 
         const { targetCareerId } = req.params
 
-        logic.updateCareer(studentUserId, targetCareerId, title, description, certification)
-            .then(() => res.status(204).send())
-            .catch(error =>{
-              let status = 500;
+        const archivo = req.files && req.files.certification && req.files.certification[0]
+            
+            if(!archivo) 
+                return res.status(400).json({ error: "Archivo no encontrado"}) 
 
-              if(error instanceof MatchError) status = 401;
+            const { downloadURL } = await uploadFile(archivo);
+            const certification = downloadURL;
 
-              res.status(status).json({ error: error.constructor.name, message: error.message })
-        })
-    } 
+            const updatedCareer = await logic.updateCareer(studentUserId, targetCareerId, title, description, certification);
+            
+            res.status(201).json(updatedCareer);
+       }
     catch(error){
     let status = 500;
 

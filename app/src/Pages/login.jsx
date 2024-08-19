@@ -2,12 +2,24 @@ import { useState } from "react"
 import logic from "../logic"
 import { errors, validate} from "com"
 import Button from '../components/Button'
+import isUserLoggedIn from "../logic/isUserLoggedIn";
 
 const { SystemError, MatchError, ContentError} = errors;
 
 function Login({onUserLoggedIn, onClickResetPassword, onClickInicio}) {
 
     const [error, setError] = useState(null);
+    const [isloading, setIsLoading] = useState(false);
+
+    //Consejo de chatGPT
+    function cargando(milisegundos){
+
+        return new Promise(handleSubmit => setTimeout(handleSubmit, milisegundos));
+    }
+    cargando(2000).then(() => {
+
+            <div class="loader"></div>
+    })
 
     const handleSubmit = event => {
 
@@ -18,13 +30,22 @@ function Login({onUserLoggedIn, onClickResetPassword, onClickInicio}) {
         const password = form.password.value;
        
         try{
-            logic.loginUser(email, password)
-                .then(() => onUserLoggedIn())
-                .catch(error => {
-                    errorHandler(error);
-                })
+
+            setIsLoading(true);
+            
+                    logic.loginUser(email, password)
+                    .then(() => {
+                    
+                        onUserLoggedIn();
+                    })
+                    .catch(error => {
+                        
+                        errorHandler(error);
+                    })    
+                
         }
         catch(error){
+            setIsLoading(false)
             errorHandler(error);
         }
     }
@@ -72,6 +93,9 @@ function Login({onUserLoggedIn, onClickResetPassword, onClickInicio}) {
                         {error?.isPasswordError && <span className="text-red-500">{error.message}</span>}<br/><br/>
 
                         <button type="submit" className="bg-black text-white hover:text-green-600 m-2 p-1 text-2xl">Iniciar Sesion</button><br/><br/>
+                        {isloading && <div className="loader"></div>
+                        }
+                        
                     </form>
 
                 </section>

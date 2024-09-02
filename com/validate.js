@@ -49,7 +49,7 @@ function validatePassword(password){
 
 function validateDireccion(address){
     if(typeof address !== "string") throw new TypeError("address is not string");
-    if(address.length < 30) throw new RangeError("Error. address no es válido. La dirección es demasiado corta");
+    if(address.length < 50) throw new RangeError("Error. address no es válido. La dirección es demasiado corta");
 }
 
 function validateActividad(activity){

@@ -35,7 +35,7 @@ function validateAge(age){
 
 function validateEmail(email){
     if(typeof email !== "string") throw new TypeError("email is not string");
-    if(email.length > 30) throw new RangeError("Error. El email es demasiado largo");
+    if(email.length > 300) throw new RangeError("Error. El email es demasiado largo");
     if(email.length < 7) throw new RangeError("Error. El email es demasiado corto");
     if(email === " ") throw new ContentError("Error. El email no debe estar vacío");
     

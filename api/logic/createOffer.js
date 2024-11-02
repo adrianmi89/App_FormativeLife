@@ -5,13 +5,13 @@ const { SystemError, MatchError } = errors;
 
 function createOffer(companyUserId, title, description, minSalary, maxSalary, publishDate, expirationDate) {
 
-    /* validate.id(offerCompanyId, "offerCompanyId");
+    validate.id(offerCompanyId, "offerCompanyId");
     validate.text(title);
     validate.text(description);
-    validate.salary(minSalary); */
-    //validate.salary(maxSalary);
-    //validate.text(publishDate);
-    //validate.Date(expirationDate);
+    validate.salary(minSalary);
+    validate.salary(maxSalary);
+    validate.text(publishDate);
+    validate.Date(expirationDate);
 
     return User.findById(companyUserId)
         .catch(error => { throw new SystemError(error.message) })

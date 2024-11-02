@@ -15,6 +15,7 @@ import createOffer from "./createOffer"
 import deleteOffer from "./deleteOffer"
 import updateCareer from "./updateCareer"
 import updateOffer from "./updateOffer"
+import createCandidate from "./createCandidate"
 
 const logic = {
     registerStudent,
@@ -33,7 +34,8 @@ const logic = {
     deleteOffer,
     updateCareer,
     updateOffer,
-    logoutUser
+    logoutUser,
+    createCandidate
 }
 
 export default logic;

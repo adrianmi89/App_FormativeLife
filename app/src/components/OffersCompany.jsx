@@ -2,7 +2,7 @@ import logic from "../logic";
 import Offer from "./Offer";
 import { useState, useEffect } from "react";
 
-function OffersCompany({ refreshStamp, targetUserId }){
+function OffersCompany({ refreshStamp, targetCompanyId }){
 
     console.log("refreshStamp", refreshStamp);
 
@@ -11,7 +11,7 @@ function OffersCompany({ refreshStamp, targetUserId }){
     const refreshScreen = () => {
 
         try{
-            logic.retrieveOffersFromCompany(targetUserId)
+            logic.retrieveOffersFromCompany(targetCompanyId)
                 .then(offers => setOffers(offers))
                 .catch(error => {
 
@@ -48,7 +48,7 @@ function OffersCompany({ refreshStamp, targetUserId }){
             <h2 className="p-10 font-semibold text-3xl">Ofertas publicadas</h2>
 
             <div id="">
-                { offers.map(offer => <Offer offer={ offer } onOfferDeleted={handleDeleteOffer} onOfferUpdate={handleUpdateOffer}/>)}
+                { offers.map(offer => <Offer userId={targetCompanyId} offer={ offer } onOfferDeleted={handleDeleteOffer} onOfferUpdate={handleUpdateOffer}/>)}
             </div>
         </section>
     )

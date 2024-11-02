@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@material-tailwind/react": "^2.1.10",
     "cally": "^0.7.1",
     "com": "file:../com",
     "react": "^18.2.0",

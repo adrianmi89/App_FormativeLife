@@ -15,6 +15,8 @@ import retrieveOffers from "./retrieveOffers.js";
 import retrieveCareersFromStudent from "./retrieveCareersFromStudent.js";
 import retrieveOffersFromCompany from "./retrieveOffersFromCompany.js";
 import countUser from "./countUsers.js";
+import createCandidate from "./createCandidate.js";
+import deleteCandidate from "./deleteCandidate.js";
 
 // TODO countUser
 const logic = {
@@ -34,7 +36,9 @@ const logic = {
     retrieveOffers,
     retrieveCareersFromStudent,
     retrieveOffersFromCompany,
-    countUser
+    countUser,
+    createCandidate,
+    deleteCandidate
 }
 
 export default logic;

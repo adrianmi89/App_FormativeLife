@@ -5,6 +5,8 @@ import logic from '../logic'
 import CareersStudent from './CareersStudent'
 import OffersCompany from './OffersCompany'
 import HeaderProfile from './HeaderProfile'
+import ButtonCandidateAdd from "./ButtonInscription";
+
 
 const { ContentError, MatchError } = errors
 
@@ -13,7 +15,8 @@ function Profile() {
     const [refreshStamp, setRefreshStamp] = useState(null);
 
     const { targetUserId } = useParams()
-
+    
+  
     useEffect(() => {
         try {
             logic.retrieveUser(targetUserId)
@@ -55,7 +58,7 @@ function Profile() {
 
             <>
             <HeaderProfile role={role}></HeaderProfile>
-            <main className="w-[100%] flex-auto">
+            <main className="mx-4 w-[100%] flex-auto">
                 <container className="my-4 mx-6 p-8 font-serif text-lg w-[79%] h-auto">
                     <section>
                         {!user && <p className="p-3">Loading...</p>}
@@ -71,7 +74,7 @@ function Profile() {
                     </section>
                     <section>
                         
-                        <CareersStudent targetUserId={targetUserId} refreshStamp={ refreshStamp }/>
+                        <CareersStudent userId={user.id} refreshStamp={ refreshStamp }/>
                     </section>
                 </container>
             </main>
@@ -83,7 +86,7 @@ function Profile() {
         : 
         <>
             <HeaderProfile role={role}></HeaderProfile>
-            <main className="w-[100%] flex-auto">
+            <main className="mx-4 w-[100%] flex-auto">
                 <container className="my-4 mx-6 p-8 font-serif text-lg w-[79%] h-auto">
                         <section>
                             {!user && <p className="p-3">Loading...</p>}
@@ -97,11 +100,10 @@ function Profile() {
                                 <p className='p-4 float-right italic font-extrabold'>Para inscribirse a una oferta es necesario enviar tu CV al correo de la empresa. Mucha suerte! </p>
                             </>
                             }
-
                         </section>
                         <section>
                        
-                        <OffersCompany targetUserId={targetUserId} refreshStamp={ refreshStamp }/>
+                        <OffersCompany targetCompanyId={targetUserId} refreshStamp={ refreshStamp }/>
                     </section>
                 </container>
             </main>

@@ -28,7 +28,7 @@ mongoose.connect(MONGO_URL)
 
         //URL por defecto
         server.get("/", (req, res) => res.json({ hello: "Bienvenido a mi API, client" }));
-        
+
         const jsonBodyParser = express.json();
 
         //Usando la librería cors para que se pueda llamar a la API desde otro servidor (le damos permiso a ese puerto)
@@ -45,7 +45,7 @@ mongoose.connect(MONGO_URL)
         } */
 
         server.use(cors());
- 
+
         //Le pasamos los datos del registro a la ruta de la API si se validó todo correctamente
         //TEST PASADO
         server.post("/users/students", jsonBodyParser, (req, res) => {
@@ -134,88 +134,16 @@ mongoose.connect(MONGO_URL)
         //TEST PASADO
         // TODO Modificar lo de certification
         //server.post('/career', jsonBodyParser,(req, res) => {
-            /* try {
-                const { authorization } = req.headers
-      
-                const token = authorization.slice(7)
-      
-                const { sub: studentUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
-      
-                const { title, description, certification } = req.body
-      
-                logic.createCareer(studentUserId, title, description, certification)
-                    .then(() => res.status(201).send())
-                    .catch(error =>{
-                      let status = 500;
-      
-                      if(error instanceof MatchError) status = 401;
-      
-                      res.status(status).json({ error: error.constructor.name, message: error.message })
-                })
-        } 
-        catch(error){
-          let status = 500;
-      
-          if(error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
-      
-          res.status(status).json({ error: error.constructor.name, message: error.message })
-        } */
-      //})
-
-      server.post("/career", upload.fields([{name: "certification", maxCount: 1}]), async(req, res) => {
-
-       try{
-            const { authorization } = req.headers
-            const token = authorization.slice(7)
-            const { sub: studentUserId } = jwt.verify(token, JWT_SECRET)
-      
-            const { title, description } = req.body;
-            const archivo = req.files && req.files.certification && req.files.certification[0]
-            
-            if(!archivo) 
-                return res.status(400).json({ error: "Archivo no encontrado"}) 
-
-            const { downloadURL } = await uploadFile(archivo);
-            const certification = downloadURL;
-
-            const createdCareer = await logic.createCareer(studentUserId, title, description, certification);
-            
-            res.status(201).json(createdCareer);
-       }
-       catch(error){
-        console.error('Error in POST /career:', error.message);
-
-        let status = 500;
-
-        if (error instanceof MatchError) {
-            status = 401;
-        } else if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError) {
-            status = 401;
-            error = new MatchError(error.message);
-        } else if (error instanceof ContentError) {
-            status = 400;
-        }
-
-        res.status(status).json({ error: error.constructor.name, message: error.message });
-       }
-    })
-    
-    server.get("/careers", (req, res) => {
-
-        return res.json({ message : "Careers"})
-    })
-      //TEST PASADO
-      server.post('/offer', jsonBodyParser, (req, res) => {
-        try {
+        /* try {
             const { authorization } = req.headers
   
             const token = authorization.slice(7)
   
-            const { sub: companyUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
+            const { sub: studentUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
   
-            const { title, description, minSalary, maxSalary, publishDate, expirationDate } = req.body
+            const { title, description, certification } = req.body
   
-            logic.createOffer(companyUserId, title, description, minSalary, maxSalary, publishDate, expirationDate)
+            logic.createCareer(studentUserId, title, description, certification)
                 .then(() => res.status(201).send())
                 .catch(error =>{
                   let status = 500;
@@ -231,120 +159,229 @@ mongoose.connect(MONGO_URL)
       if(error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
   
       res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-  })
-  // Pendiente para subir ficheros
-  server.post("/users/students", jsonBodyParser, (req, res) => {
-    try {
-        const { name, surnames, age, email, password } = req.body;
-        logic.registerStudent(name, surnames, age, email, password)
-            .then(() => res.status(201).send())
-            .catch(error => {
+    } */
+        //})
 
-                let status = 500;
+        server.post("/career", upload.fields([{ name: "certification", maxCount: 1 }]), async (req, res) => {
 
-                if (error instanceof DuplicityError) status = 409;
+            try {
+                const { authorization } = req.headers
+                const token = authorization.slice(7)
+                const { sub: studentUserId } = jwt.verify(token, JWT_SECRET)
 
-                res.status(status).json({ error: error.constructor.name, message: error.message });
-            })
-    }
-    catch (error) {
+                const { title, description } = req.body;
+                const archivo = req.files && req.files.certification && req.files.certification[0]
 
-        let status = 500;
+                if (!archivo)
+                    return res.status(400).json({ error: "Archivo no encontrado" })
 
-        if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError)
-            status = 400;
+                const { downloadURL } = await uploadFile(archivo);
+                const certification = downloadURL;
 
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-  //TEST PASADO
-  server.patch('/careers/:targetCareerId', upload.fields([{name: "certification", maxCount: 1}]), async(req, res) => {
-    try {
-        const { authorization } = req.headers
+                const createdCareer = await logic.createCareer(studentUserId, title, description, certification);
 
-        const token = authorization.slice(7)
-
-        const { sub: studentUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
-
-        const { title, description } = req.body
-
-        const { targetCareerId } = req.params
-
-        const archivo = req.files && req.files.certification && req.files.certification[0]
-            
-            if(!archivo) 
-                return res.status(400).json({ error: "Archivo no encontrado"}) 
-
-            const { downloadURL } = await uploadFile(archivo);
-            const certification = downloadURL;
-
-            const updatedCareer = await logic.updateCareer(studentUserId, targetCareerId, title, description, certification);
-            
-            res.status(201).json(updatedCareer);
-       }
-    catch(error){
-    let status = 500;
-
-    if(error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
-
-    res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-    })
-
-    server.patch('/offers/:targetOfferId', jsonBodyParser, (req, res) => {
-        try {
-            const { authorization } = req.headers
-
-            const token = authorization.slice(7)
-
-            const { sub: companyUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
-
-            const { title, description, minSalary, maxSalary, publishDate, expirationDate } = req.body
-
-            const { targetOfferId } = req.params
-
-            logic.updateOffer(companyUserId, targetOfferId, title, description, minSalary, maxSalary, publishDate, expirationDate)
-                .then(() => res.status(204).send())
-                .catch(error =>{
-                let status = 500;
-
-                if(error instanceof MatchError) status = 401;
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-            })
-    } 
-    catch(error){
-    let status = 500;
-
-    if(error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
-
-    res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-    })
-
-  server.get('/users', (req, res) => {
-    try {
-
-        const { authorization } = req.headers
-
-        const token = authorization.slice(7)
-
-        const { sub: userId } = jwt.verify(token, JWT_SECRET)
-
-        logic.retrieveUsers(userId)
-            .then(user => res.json(user))
-            .catch(error => {
+                res.status(201).json(createdCareer);
+            }
+            catch (error) {
+                console.error('Error in POST /career:', error.message);
 
                 let status = 500;
 
                 if (error instanceof MatchError) {
-
-                    status = 404;
+                    status = 401;
+                } else if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError) {
+                    status = 401;
+                    error = new MatchError(error.message);
+                } else if (error instanceof ContentError) {
+                    status = 400;
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message });
-            })
+            }
+        })
+
+        server.get("/careers", (req, res) => {
+
+            return res.json({ message: "Careers" })
+        })
+        //TEST PASADO
+        server.post('/offer', jsonBodyParser, (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: companyUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
+
+                const { title, description, minSalary, maxSalary, publishDate, expirationDate } = req.body
+
+                logic.createOffer(companyUserId, title, description, minSalary, maxSalary, publishDate, expirationDate)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+                        let status = 500;
+
+                        if (error instanceof MatchError) status = 401;
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+                    })
+            }
+            catch (error) {
+                let status = 500;
+
+                if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+        //Añadimos al candidato en una oferta
+        //Ruta validada con éxito
+        server.post("/offers/:offerId/candidates", (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: studentUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
+
+                const { offerId } = req.params
+
+                logic.createCandidate(studentUserId, offerId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        let status = 500;
+
+                        if (error instanceof MatchError) status = 404;
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+                    })
+            }
+            catch (error) {
+                let status = 500;
+
+                if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
+
+                if(error instanceof JsonWebTokenError || error instanceof TokenExpiredError){
+
+                    status = 400;
+                    error = new MatchError(error.message);
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+            }
+        })
+
+        server.post("/users/students", jsonBodyParser, (req, res) => {
+            try {
+                const { name, surnames, age, email, password } = req.body;
+                logic.registerStudent(name, surnames, age, email, password)
+                    .then(() => res.status(201).send())
+                    .catch(error => {
+
+                        let status = 500;
+
+                        if (error instanceof DuplicityError) status = 409;
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message });
+                    })
+            }
+            catch (error) {
+
+                let status = 500;
+
+                if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError)
+                    status = 400;
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+        //TEST PASADO
+        server.patch('/careers/:targetCareerId', upload.fields([{ name: "certification", maxCount: 1 }]), async (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: studentUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
+
+                const { title, description } = req.body
+
+                const { targetCareerId } = req.params
+
+                const archivo = req.files && req.files.certification && req.files.certification[0]
+
+                if (!archivo)
+                    return res.status(400).json({ error: "Archivo no encontrado" })
+
+                const { downloadURL } = await uploadFile(archivo);
+                const certification = downloadURL;
+
+                const updatedCareer = await logic.updateCareer(studentUserId, targetCareerId, title, description, certification);
+
+                res.status(201).json(updatedCareer);
+            }
+            catch (error) {
+                let status = 500;
+
+                if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        server.patch('/offers/:targetOfferId', jsonBodyParser, (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: companyUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
+
+                const { title, description, minSalary, maxSalary, publishDate, expirationDate } = req.body
+
+                const { targetOfferId } = req.params
+
+                logic.updateOffer(companyUserId, targetOfferId, title, description, minSalary, maxSalary, publishDate, expirationDate)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        let status = 500;
+
+                        if (error instanceof MatchError) status = 401;
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+                    })
+            }
+            catch (error) {
+                let status = 500;
+
+                if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        server.get('/users', (req, res) => {
+            try {
+
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                logic.retrieveUsers(userId)
+                    .then(user => res.json(user))
+                    .catch(error => {
+
+                        let status = 500;
+
+                        if (error instanceof MatchError) {
+
+                            status = 404;
+                        }
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message });
+                    })
             } catch (error) {
 
                 let status = 500;
@@ -520,13 +557,13 @@ mongoose.connect(MONGO_URL)
 
                 logic.deleteOffer(userId, offerId)
                     .then(() => res.status(204).send())
-                    .catch(error =>{
-                      let status = 500;
-      
-                      if(error instanceof MatchError) status = 401;
-      
-                      res.status(status).json({ error: error.constructor.name, message: error.message })
-                })
+                    .catch(error => {
+                        let status = 500;
+
+                        if (error instanceof MatchError) status = 401;
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+                    })
             } catch (error) {
 
                 let status = 500;
@@ -553,13 +590,13 @@ mongoose.connect(MONGO_URL)
 
                 logic.deleteCareer(userId, careerId)
                     .then(() => res.status(204).send())
-                    .catch(error =>{
-                      let status = 500;
-      
-                      if(error instanceof MatchError) status = 401;
-      
-                      res.status(status).json({ error: error.constructor.name, message: error.message })
-                })
+                    .catch(error => {
+                        let status = 500;
+
+                        if (error instanceof MatchError) status = 401;
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+                    })
             } catch (error) {
 
                 let status = 500;
@@ -584,13 +621,13 @@ mongoose.connect(MONGO_URL)
 
                 logic.deleteCareer(userId)
                     .then(() => res.status(204).send())
-                    .catch(error =>{
-                      let status = 500;
-      
-                      if(error instanceof MatchError) status = 401;
-      
-                      res.status(status).json({ error: error.constructor.name, message: error.message })
-                })
+                    .catch(error => {
+                        let status = 500;
+
+                        if (error instanceof MatchError) status = 401;
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+                    })
             } catch (error) {
 
                 let status = 500;

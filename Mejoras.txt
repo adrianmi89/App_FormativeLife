@@ -1,0 +1,5 @@
+
+INSCRIPCIÓN A LAS VACANTES
+
+- La inscripción de cada usuario debe de estar en la tabla de las ofertas en forma de array.
+- Instalar axios (mirar como manejarlo en ChatGPT)

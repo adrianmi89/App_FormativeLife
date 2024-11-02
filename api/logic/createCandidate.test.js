@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
-import autenticateUser from './autenticateUser.js'
+import createCandidate from './createCandidate.js'
 
 mongoose.connect('mongodb://localhost:27017/FormativeLife')
     .then(() => {
         try {
-            autenticateUser('ManuBarziAlf@gmail.com', '12345678')
+            createCandidate('663fdcd4a4f8c5a8fada1fdc', '6653505b2ee6e9aa167ca0a0')
                 .then(userId => console.log('user logged in', userId))
                 .catch(error => console.error(error))
         } catch (error) {

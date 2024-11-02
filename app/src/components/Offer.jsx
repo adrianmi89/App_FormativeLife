@@ -1,25 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logic from "../logic"
 import Button from "./Button";
-import { errors, validate } from "com"
+import { errors } from "com"
 import ButtonEditProfile from "./ButtonEditProfile";
+import ButtonCandidateAdd from "./ButtonInscription";
+//import candidateAdd from "./CreateCandidate";
+
+//const { handleAddCandidate } = candidateAdd;
 
 const { RangeError } = errors
 
-function Offer({ offer, onOfferDeleted, onOfferUpdate }){
+function Offer({ offer, onOfferDeleted, onOfferUpdate}){
+
+    const [userExist, setUserExist] = useState(false) // Estado para controlar si es un candidato
+    const [candidatesCount, setCandidatesCount] = useState(0) // Contador de candidatos en una oferta
+
+   const userId  = logic.getLoggedInUserId()
+    useEffect(() => {
+        if (userId && offer.candidates) { // Asegurarse de que la oferta y el estudiante existe antes de acceder a ellos
+            setCandidatesCount(offer.candidates.length); // Actualiza el contador de likes con los datos que vengan del servidor
+
+            // Verificar si el usuario ya se ha inscrito en esa oferta
+            if (userId && offer.candidates.includes(userId)) {
+                setUserExist(true);
+            }
+        }
+    }, [userId, offer]);
+
+    const handleAddCandidate = () => {
+        
+        try{
+            logic.createCandidate(logic.getLoggedInUserId(),offer.id)
+                .then(() => {
+                    setUserExist(!userExist)
+                    setCandidatesCount(userExist ? candidatesCount + 0 : candidatesCount +1)
+                })
+                .catch(error => {
+                    console.error("Error al añadir al estudiante ",error)
+                })
+        }
+        catch(error){
+            console.error("Error al intentar inscribirse en la oferta.",error)
+        }
+    }
 
     const handleDeleteOffer = () => {
-
+        
         const deleteConfirmed = confirm("Delete ??????")
         
         if(!deleteConfirmed) return;
 
         try{
-            logic.deleteOffer(offer.id)
+            logic.deleteOffer(offer)
             .then(() => {onOfferDeleted()})
             .catch(error =>  {
 
                 console.error(error);
+                
                 alert(error.message);
             })
         }
@@ -114,6 +151,9 @@ function Offer({ offer, onOfferDeleted, onOfferUpdate }){
             <h2 className="p-2"><span className="font-extrabold">Fecha de publicación:</span> { formatDate(offer.publishDate) }</h2>
             <h2 className="p-2"><span className="font-extrabold">Fecha de expiración (aprox):</span> { formatDate(offer.expirationDate) }</h2>
             
+            { offer.company.id !== logic.getLoggedInUserId() && 
+                <ButtonCandidateAdd userExist={userExist} onClick={ handleAddCandidate }/>
+            }
             { offer.company.id === logic.getLoggedInUserId() && 
                 <div>
                     <ButtonEditProfile onClick={ handleDeleteOffer} className="bg-red-600">Borrar</ButtonEditProfile>
@@ -123,8 +163,10 @@ function Offer({ offer, onOfferDeleted, onOfferUpdate }){
             {!changeOffer && offer.company.id === logic.getLoggedInUserId() && <>
            
            <ButtonEditProfile onClick={()=> setChangeOffer(true)} className="bg-green-600">Editar Oferta</ButtonEditProfile>
+           <Button>Ver las X solicitudes (Trabajando en ello)</Button>
            </>
            }
+           
            {changeOffer && 
            <>
                <form onSubmit={ handleUpdateSubmit }>

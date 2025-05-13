@@ -1,0 +1,2 @@
+//TODO
+curl -X DELETE -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjNmZGQxOWE0ZjhjNWE4ZmFkYTFmZGYiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc0NDczMTc2NiwiZXhwIjoxNzQ0NzMzNTY2fQ.maWmkJWlgLP6H3W5iKVlZ1WwPn1_tYsR0NolY9bBmSc' http://127.0.0.1:8989/ -v

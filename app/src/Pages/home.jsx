@@ -95,7 +95,7 @@ function Home(props) {
     <>
         <header className="mx-0 my-0 p-6 flex-auto w-[100%] h-52 border-solid shadow-2xl bg-blue-400 font-extrabold font-sans">
             <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={props.onClickInicio}>FormativeLife</div>
-            <div className="float-right mx-[10%] text-3xl"><i>Busca o atrae talento</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
+            <div className="flex-auto w-[30%] float-left mx-[20%] text-2xl justify-center"><i>Bienvenido a tu perfil !</i></div>
             <div className="m-[0%] float-right w-[30%] border-solid">
                 <Button onClick={props.onClickInicio}>Página principal 🏚️</Button>
                 <Button onClick={handleLogout}>Cerrar Sesión</Button>
@@ -104,7 +104,7 @@ function Home(props) {
             <div>
                 <form className="form">
                     {/* Hacer buscador por area profesional si da tiempo */}
-                    <Button className="p-2 my-2 mx-20 border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onClickListarUsers}>Buscar empresas y ver ofertas</Button>
+                    <Button className="p-2 my-6 mx[30%] border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onClickListarUsers}>Buscar empresas y ver ofertas</Button>
                 </form>
             </div>
         </header>

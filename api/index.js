@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import express from "express"
 import upload from "./config/multer.js"
+import { google } from "googleapis"
 import { uploadFile } from "./util/uploadFile.js"
 import logic from "./logic/index.js"
 import cors from "cors"
@@ -17,7 +18,14 @@ const { JsonWebTokenError, TokenExpiredError } = jwt;
 const { ContentError, DuplicityError, MatchError } = errors;
 
 //Le cambiamos el puerto a la App de esta forma
-const { PORT, MONGO_URL, JWT_SECRET } = process.env;
+const { PORT, MONGO_URL, JWT_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI } = process.env;
+
+//Configuración de Google OAuth
+const oauth2Client = new google.auth.OAuth2(
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
+    GOOGLE_REDIRECT_URI
+)
 
 mongoose.connect(MONGO_URL)
     .then(() => {
@@ -131,6 +139,72 @@ mongoose.connect(MONGO_URL)
                 res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
+        // Endpoint para iniciar el flujo de autenticación con Google
+
+        server.get('/auth/google', (req, res) => {
+            const scopes = [
+                'https://www.googleapis.com/auth/calendar.events',
+                'https://www.googleapis.com/auth/calendar',
+                'https://www.googleapis.com/auth/userinfo.email',
+                'https://www.googleapis.com/auth/userinfo.profile'
+            ]
+
+            const authUrl = oauth2Client.generateAuthUrl({
+                access_type: 'offline',
+                scope: scopes,
+                prompt: 'consent',
+            })
+
+            res.redirect(authUrl)
+
+        // Endpoint para manejar el callback de Google
+
+        server.get('/google/redirect', async (req, res) => {
+            const { code } = req.query
+
+            try {
+                const { tokens } = await oauth2Client.getToken(code)
+
+                oauth2Client.setCredentials(tokens)
+
+                // Guarda los tokens en tu base de datos junto con el usuario autenticado
+                // Ejemplo: await logic.saveGoogleTokens(userId, tokens);
+
+                res.status(200).json({ message: 'Google tokens saved successfully', tokens })
+            } catch (error) {
+                res.status(500).json({ error: 'Failed to retrieve tokens from Google', message: error.message })
+            }
+        })
+
+        // Obtener eventos del calendario de Google
+
+        server.get('/calendar/events', async (req, res) => {
+            try {
+                const { authorization } = req.headers
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                // Recupera los tokens de Google guardados en tu base de datos
+                const googleTokens = await logic.getGoogleTokens(userId)
+
+                oauth2Client.setCredentials(googleTokens)
+
+                const calendar = google.calendar({ version: 'v3', auth: oauth2Client })
+
+                const { data } = await calendar.events.list({
+                    calendarId: 'primary',
+                    timeMin: new Date().toISOString(),
+                    maxResults: 10,
+                    singleEvents: true,
+                    orderBy: 'startTime',
+                });
+
+                res.json(data.items);
+            } catch (error) {
+                res.status(500).json({ error: 'Failed to fetch calendar events', message: error.message })
+            }
+        })
         //TEST PASADO
         // TODO Modificar lo de certification
         //server.post('/career', jsonBodyParser,(req, res) => {
@@ -160,7 +234,7 @@ mongoose.connect(MONGO_URL)
   
       res.status(status).json({ error: error.constructor.name, message: error.message })
     } */
-        //})
+    })
 
         server.post("/career", upload.fields([{ name: "certification", maxCount: 1 }]), async (req, res) => {
 
@@ -246,6 +320,42 @@ mongoose.connect(MONGO_URL)
                 const { offerId } = req.params
 
                 logic.createCandidate(studentUserId, offerId)
+                    .then(() => res.status(204).send())
+                    .catch(error => {
+                        let status = 500;
+
+                        if (error instanceof MatchError) status = 404;
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+                    })
+            }
+            catch (error) {
+                let status = 500;
+
+                if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) status = 400;
+
+                if(error instanceof JsonWebTokenError || error instanceof TokenExpiredError){
+
+                    status = 400;
+                    error = new MatchError(error.message);
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+            }
+        })
+        // TODO. Modificarlo
+        server.delete("/users/students/:userId/MyCandidatures/:candidatureId", (req, res) => {
+            try {
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: studentUserId } = jwt.verify(token, 'esta app va ser disrruptiva en la forma de encontrar trabajo')
+
+                const { offerId } = req.params
+
+                logic.deleteCandidate(studentUserId, offerId)
                     .then(() => res.status(204).send())
                     .catch(error => {
                         let status = 500;
@@ -469,7 +579,7 @@ mongoose.connect(MONGO_URL)
             }
         })
 
-
+        // Ruta para acceder las ofertas publicadas de una empresa
         server.get('/users/:targetUserId/offers', (req, res) => {
             try {
 
@@ -506,6 +616,45 @@ mongoose.connect(MONGO_URL)
                 res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
+
+        // Ruta para acceder a las ofertas activas de un estudiante
+        server.get('/users/:targetUserId/offersActives', (req, res) => {
+            try {
+
+                const { authorization } = req.headers
+
+                const token = authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                const { targetUserId } = req.params
+
+                logic.retrieveOffersFromStudent(targetUserId)
+                    .then(user => res.json(user))
+                    .catch(error => {
+
+                        let status = 500;
+
+                        if (error instanceof MatchError) {
+
+                            status = 404;
+                        }
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message });
+                    })
+            } catch (error) {
+
+                let status = 500;
+
+                if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) {
+
+                    status = 400
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
         //TODO Ir al perfil de otro usuario
         server.get('/profile/:targetUserId', (req, res) => {
             try {

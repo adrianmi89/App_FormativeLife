@@ -41,9 +41,9 @@ function Inicio({ onClickLogin , onClickRegister, onClickParaQuienEs, onClickTut
     <>
         <header className="mx-0 my-0 p-6 flex-auto w-[100%] h-40 border-solid shadow-2xl bg-blue-400 font-extrabold font-sans">
             <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal">FormativeLife</div>
-            <div className="float-right mx-[10%] text-3xl"><i>Busca o atrae talento</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
+            <div className="flex-auto w-[30%] float-left mx-[20%] text-2xl justify-center"><i>Busca o atrae talento</i></div>
 
-            <div className="m-[0%] float-right w-[30%] border-solid flex-auto">
+            <div className="mx-[10%] float-right w-[30%] border-solid flex-auto">
                 <Button onClick={handleClickUserLogin}>Iniciar Sesión</Button>
                 <Button onClick={handleClickUserRegister}>Crear cuenta</Button>
                 {/* {

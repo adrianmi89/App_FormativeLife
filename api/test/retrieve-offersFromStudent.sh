@@ -1,0 +1,1 @@
+curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjNmZGQxOWE0ZjhjNWE4ZmFkYTFmZGYiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc0NzEzMjY5MiwiZXhwIjoxNzQ3MTM0NDkyfQ.r2pXwCUj5Jq6Bwm__O3mM047KfkKYtimYap5LLZZIzw' http://127.0.0.1:8989/users/663fdd19a4f8c5a8fada1fdf/offersActives -v

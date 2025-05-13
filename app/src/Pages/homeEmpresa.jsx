@@ -72,11 +72,11 @@ function HomeEmpresa(props) {
     <>
         <header className="mx-0 my-0 p-6 flex-auto w-[100%] h-52 border-solid shadow-2xl bg-blue-400 font-extrabold font-sans">
             <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={props.onClickInicio}>FormativeLife</div>
-            <div className="float-right mx-[10%] text-3xl"><i>Busca o atrae talento</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
+            <div className="flex-auto w-[30%] float-left mx-[20%] text-2xl justify-center"><i>Bienvenido a tu perfil !</i></div>
             <div className="m-[0%] float-right w-[30%] border-solid">
                 <Button onClick={props.onClickInicio}>Página principal 🏚️</Button>
                 <Button onClick={handleLogout}>Cerrar Sesión</Button>
-                <ButtonEditProfile onClick={ handleDeleteUser }>Borrar cuenta</ButtonEditProfile>
+                <ButtonEditProfile className="bg-red-600"onClick={ handleDeleteUser }>Borrar cuenta</ButtonEditProfile>
                 
             </div>
             <div id="area-buscador">

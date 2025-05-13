@@ -77,7 +77,7 @@ function Login({onUserLoggedIn, onClickResetPassword, onClickInicio}) {
     <>
         <header className="mx-0 my-0 p-6 flex-auto w-[100%] h-40 border-solid shadow-2xl bg-blue-400 font-extrabold font-sans">
             <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={onClickInicio}>FormativeLife</div>
-            <div className="float-right mx-[10%] text-3xl"><i>Tu red de contactos haciendo Match</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
+            <div className="flex-auto w-[30%] float-right mx-[20%] text-2xl justify-center"><i>Conecta con varios perfiles</i></div>
         </header>
         <main className="my-4 mx-[30%] w-[20%] flex-auto">
             <container className="my-4 m-l-[2%] m-r-[2%] p-8 font-serif text-lg h-auto">

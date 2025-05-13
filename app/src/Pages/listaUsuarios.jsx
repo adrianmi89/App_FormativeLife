@@ -57,7 +57,7 @@ function ListaUsuarios(props) {
         <>
             <header className="mx-0 my-0 p-6 flex-auto w-[100%] h-40 border-solid shadow-2xl bg-blue-400 font-extrabold font-sans">
                 <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={props.onClickInicio}>FormativeLife</div>
-                <div className="float-right mx-[10%] text-3xl"><i>Lista de Usuarios</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
+                <div className="flex-auto w-[30%] float-left mx-[20%] text-2xl justify-center"><i>Resultados de búsqueda</i></div>
 
                 <Button className="m-[0%] float-right w-[30%] border-solid rounded-md shadow-2xl bg-white hover:bg-black hover:text-white hover:text-sm" onClick={props.onUserLoggedIn}>Volver a tu perfil</Button>
             </header>
@@ -68,13 +68,14 @@ function ListaUsuarios(props) {
                             role == "student" ?
                            
                                 <>
-                                    <h2 className="text-xl font-bold text-center">Lista de empresas tech</h2>
+                                    <h2 className="text-3xl font-bold text-center">Lista de empresas tech</h2>
+                                    <hr />
                                     <ul>
 
                                         {
                                             users.map(user => (
 
-                                                    <li key={user.id} className="text-lg font-bold p-4">
+                                                    <li key={user.id} className="text-2xl font-bold p-8">
                                                     <Link to={`/profile/${user.id}`}>{user.name}</Link>
                                                 </li>
                                                 
@@ -85,13 +86,14 @@ function ListaUsuarios(props) {
                                 </>
                                 :
                                 <>
-                                    <h2 className="text-xl font-bold text-center">Lista de estudiantes</h2>
+                                    <h2 className="text-3xl font-bold text-center">Lista de estudiantes</h2>
+                                    <hr />
                                     <ul>
                                         
                                         {
                                             users.map(user => (
 
-                                                <li key={user.id} className="text-lg font-bold p-4">
+                                                <li key={user.id} className="text-3xl font-bold p-8">
                                                     <Link to={`/profile/${user.id}`}>{user.name} {user.surnames}</Link>
                                                 </li>
                                             ))

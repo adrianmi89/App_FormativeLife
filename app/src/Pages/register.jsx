@@ -94,14 +94,15 @@ function Register(props) {
     <>
         <header className="mx-0 my-0 p-6 flex-auto w-[100%] h-40 border-solid shadow-2xl bg-blue-400 font-extrabold font-sans">
             <div className="text-6xl font-mono float-left cursor-pointer" title="Ir a la página principal" onClick={props.onClickInicio}>FormativeLife</div>
-            <div className="float-right mx-[10%] text-3xl"><i>Crea ya tu perfil profesional !!</i><img className="mx-2 cursor-help" width="50px" height="30px" src="https://adrianmi.info/images/enlace-roto.png" alt="Conecta con varios perfiles" title="Conecta con varios perfiles"/></div>
+            <div className="flex-auto w-[30%] float-left mx-[20%] text-2xl justify-center"><i>Crea ya tu perfil profesional !!</i></div>
             
         </header>
         <main className="my-4 mx-[2%] w-[100%] flex-auto">
             <container className="my-4 m-l-[2%] m-r-[2%] p-8 font-serif text-lg w-[79%] h-auto">
                 <section className="flex-auto">
-                <h2 className="text-3xl font-mono font-extrabold text-center">Regístrate</h2><br/>
-                    <form className="float-right text-xl" onSubmit={ handleSubmitStudent }>
+                <h2 className="text-3xl font-mono font-extrabold text-center">Regístrate</h2>
+                <hr />
+                    <form className="p-32 float-right text-xl" onSubmit={ handleSubmitStudent }>
                         <label className="font-extrabold" htmlFor="name">Nombre: </label>
                         <input className="myborder-solid border-2 bg-white border-black mx-2 p-2" type="text" id="name" placeholder="" required /><br/><br/>
                         {/* {error?.isNameError && <span className="text-red-500">{error.message}</span>}<br/> */}
@@ -114,7 +115,7 @@ function Register(props) {
                         <input className="border-solid border-2 bg-white border-black mx-2 p-2" type="text" id="age" placeholder="Debe ser mayor de 16" required /><br/><br/>{error?.isAgeError && <span className="text-red-500">{error.message}</span>}<br/>
 
                         <label className="font-extrabold" htmlFor="email">Correo electrónico: </label>
-                        <input className="border-solid border-2 bg-white border-black mx-2 p-2" type="text" id="email" placeholder="" required /><br/><br/>
+                        <input className=" w-60 border-solid border-2 bg-white border-black mx-2 p-2" type="text" id="email" placeholder="" required /><br/><br/>
                         {/* {error?.isEmailError && <span className="text-red-500">{error.message}</span>}<br/> */}
 
                         <label className="font-extrabold" htmlFor="password">Contraseña: </label>
@@ -124,7 +125,7 @@ function Register(props) {
                         <Button type="submit">Registrarse como estudiante</Button>
                     </form>
 
-                    <form className="float-left text-xl" onSubmit={ handleSubmitCompany }>
+                    <form className="p-32 float-left text-xl" onSubmit={ handleSubmitCompany }>
                         <label className="font-extrabold" htmlFor="name">Nombre: </label>
                         <input className="border-solid border-2 bg-white border-black mx-2 p-2" type="text" id="name" placeholder="" required /><br/><br/>
                         {/* {error?.isNameError && <span className="text-red-500">{error.message}</span>}<br/> */}

@@ -47,7 +47,7 @@ function Profile() {
 
             alert(feedback)
         }
-    }, [])
+    },[])
 
     const role = user?.role;
 
@@ -72,6 +72,7 @@ function Profile() {
                         }
                         
                     </section>
+                    {/* <aside>TODO. Poner el listado de ofertas activas aquí</aside> */}
                     <section>
                         
                         <CareersStudent userId={user.id} refreshStamp={ refreshStamp }/>
@@ -97,7 +98,7 @@ function Profile() {
                                 <h2 className="text-xl "><span className="font-extrabold">Ubicación:</span> {user.address}</h2>
                                 <h2 className="text-xl "><span className="font-extrabold">Correo:</span> <a href="https://www.gmail.com/mail/help/intl/es/about.html?iframe" target="_blank">{user.email}</a></h2>
 
-                                <p className='p-4 float-right italic font-extrabold'>Para inscribirse a una oferta es necesario enviar tu CV al correo de la empresa. Mucha suerte! </p>
+                                <p className='p-16 float-right italic font-extrabold'>Para inscribirse a una oferta es necesario enviar tu CV al correo de la empresa. Mucha suerte! </p>
                             </>
                             }
                         </section>
